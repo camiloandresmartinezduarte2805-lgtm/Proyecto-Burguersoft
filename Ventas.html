@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Burgersoft - Gestion de Ventas</title>
+    <link rel="stylesheet" href="estilos-header-lader-admin.css" />
+    <link rel="stylesheet" href="Estilo-Venta.css" />
+    <link rel="icon" href="img/icono.png" type="image/x-icon" />
+</head>
+<body>
+
+    <!-- SIDEBAR IZQUIERDO -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="img/icono.png" alt="Logo Burgersoft" class="logo" />
+            <hr style="border-right: 0px solid var(--color-primario); height: 40px;" />
+            <h2 class="nom-local">El Oriente</h2>
+        </div>
+
+        <div class="sidebar-footer">
+            <hr style="width: 150px; align-self: center;" />
+            <div class="sidebar-item">
+                <a href="Config Cuenta.html">
+                    <img src="img/engranaje.png" class="icono-sidebar" alt="Icono Configuración" />
+                    CONFIGURACIÓN DE CUENTA
+                </a>
+            </div>
+
+            <hr style="width: 150px; align-self: center;" />
+            <div class="sidebar-item admin-name" style="text-align: center;">
+                <a href="#" style="text-align: center;">
+                    <img src="img/usuario.png" class="icono-sidebar" alt="Icono Usuario" />
+                    José Orduz
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-content">
+        
+        <!-- HEADER NAV DERECHA -->
+        <nav class="header-nav" aria-label="Navegación principal">
+            <hr style="border-right: 1px solid white; height: 40px;" />
+            <a href="inicio_admin.html" class="nav-item" role="link">
+                <img src="img/casa.png" class="icono" alt="Icono Inicio" />
+                Inicio
+            </a>
+
+            <hr style="border-right: 1px solid white; height: 40px;" />
+            <a href="Menu.html" class="nav-item" role="link">
+                <img src="img/cena.png" class="icono" alt="Icono Menú" />
+                Menú
+            </a>
+
+            <hr style="border-right: 1px solid white; height: 40px;" />
+            <a href="Ventas.html" class="nav-item active" role="link" aria-current="page">
+                <img src="img/insignia.png" class="icono" alt="Icono Ventas" />
+                Ventas
+            </a>
+
+            <hr style="border-right: 1px solid white; height: 40px;" />
+            <a href="Materia Prima.html" class="nav-item" role="link">
+                <img src="img/tratamiento-a-base-de-hierbas.png" class="icono" alt="Icono Materia Prima" />
+                Materia Prima
+            </a>
+
+            <hr style="border-right: 2px solid white; height: 40px;" />
+            <a href="Gestion Marca.html" class="nav-item" role="link">
+                <img src="img/marca-comercial.png" class="icono" alt="Icono Gestión de Marca" />
+                Gestión de Marca
+            </a>
+
+            <hr style="border-right: 2px solid white; height: 40px;" />
+            <a href="Promociones.html" class="nav-item" role="link">
+                <img src="img/promocion.png" class="icono" alt="Icono Promociones" />
+                Promociones
+            </a>
+
+            <hr style="border-right: 2px solid white; height: 40px;" />
+            <a href="Burguersoft.html" class="nav-item nav-logout" role="link">
+                <img src="img/cerrar-sesion.png" class="icono" alt="Icono Salir" />
+                Salir
+            </a>
+        </nav>
+
+        <h1>Gestión de Ventas</h1>
+
+        <!-- CAMPOS EN UNA FILA -->
+        <div class="form-row" role="form" aria-label="Formulario de gestión de ventas">
+            <div class="fila">
+                <input type="text" id="cliente" placeholder="Cliente" aria-label="Cliente" />
+            </div>
+            <div class="fila">
+                <input type="text" id="producto" placeholder="Producto" aria-label="Producto" />
+            </div>
+            <div class="fila">
+                <input type="number" id="cantidad" placeholder="Cantidad" aria-label="Cantidad" min="1" />
+            </div>
+            <div class="fila">
+                <input type="number" id="precio" placeholder="Precio" aria-label="Precio" step="500" min="1" />
+            </div>
+            <div class="fila">
+                <input type="datetime-local" id="fecha" placeholder="Fecha y Hora" aria-label="Fecha y Hora" />
+            </div>
+            
+            <button class="save-btn" onclick="guardar()" aria-label="Guardar venta">Guardar</button>
+        </div>
+
+        <div class="busqueda">
+            <input type="text" id="buscar" placeholder="Buscar venta..." aria-label="Buscar venta" />
+        </div>
+
+        <!-- TABLA -->
+        <table id="tablaVentas" aria-describedby="descTablaVentas">
+            <thead>
+                <tr>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Valor total</th>
+                    <th scope="col">Fecha y Hora</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </div>
+
+<div id="widget-accesibilidad">
+    <button id="boton-accesibilidad" title="Opciones de Accesibilidad"></button>
+    <div id="menu-accesibilidad">
+        <h4>Panel de Accesibilidad</h4>
+        
+        <div class="opcion-acc">
+            <label>Tamaño de letra: <span id="val-size">100%</span></label>
+            <input type="range" id="slider-size" min="80" max="150" value="100">
+        </div>
+
+        <div class="opcion-acc">
+            <label>Tipo de fuente:</label>
+            <select id="select-font">
+                <option value="Arial, sans-serif">Predeterminada</option>
+                <option value="'Courier New', monospace">Monoespaciado</option>
+                <option value="'Georgia', serif">Elegante (Serif)</option>
+                <option value="'OpenDyslexic', sans-serif">Lectura Fácil</option>
+            </select>
+        </div>
+
+        <div class="opcion-acc">
+            <button id="btn-contraste" onclick="toggleContrast()">Activar Modo Oscuro</button>
+        </div>
+    </div>
+</div>
+
+    <link rel="stylesheet" href="Accesibilidad.css">
+    <script src="Accesibilidad.js"></script>
+
+    <script>
+
+    // ----- Fecha y hora automática -----
+    function fechaActual() {
+        const ahora = new Date();
+        ahora.setMinutes(ahora.getMinutes() - ahora.getTimezoneOffset());
+        return ahora.toISOString().slice(0, 16);
+    }
+
+    window.onload = () => {
+        document.getElementById("fecha").value = fechaActual();
+        cargarVentas();
+    };
+
+    // ----- Funciones de LocalStorage -----
+    const keyStorage = "ventas";
+
+    function guardarEnLocal(ventas) {
+        localStorage.setItem(keyStorage, JSON.stringify(ventas));
+    }
+
+    function obtenerVentas() {
+        return JSON.parse(localStorage.getItem(keyStorage)) || [];
+    }
+
+    // ----- Mostrar ventas en la tabla -----
+    function mostrarVentas(filtro = "") {
+        const tabla = document.querySelector("#tablaVentas tbody");
+        tabla.innerHTML = "";
+
+        const ventas = obtenerVentas()
+            .filter(v => 
+                v.cliente.toLowerCase().includes(filtro.toLowerCase()) ||
+                v.producto.toLowerCase().includes(filtro.toLowerCase())
+            );
+
+        ventas.forEach((v, index) => {
+            const fila = document.createElement("tr");
+            fila.innerHTML = `
+                <td>${v.cliente}</td>
+                <td>${v.producto}</td>
+                <td>${v.cantidad}</td>
+                <td>${v.precio}</td>
+                <td>${v.fecha.replace("T", " ")}</td>
+                <td>
+                    <button class="btn-accion modificar" onclick="modificarVenta(${index})">Modificar</button>
+                    <button class="btn-accion eliminar" onclick="eliminarVenta(${index})">Eliminar</button>
+                </td>
+            `;
+            tabla.appendChild(fila);
+        });
+    }
+
+    // ----- Guardar venta -----
+    function guardar() {
+        const cliente = document.getElementById("cliente").value.trim();
+        const producto = document.getElementById("producto").value.trim();
+        const cantidad = parseInt(document.getElementById("cantidad").value);
+        const precio = parseInt(document.getElementById("precio").value);
+        const fecha = document.getElementById("fecha").value;
+
+        if (!cliente || !producto || !cantidad || !precio || !fecha) {
+            alert("Rellene todos los campos.");
+            return;
+        }
+
+        if(cantidad <= 0 || precio <= 0) {
+            alert("Cantidad y precio deben ser mayores a 0.");
+            return;
+        }
+
+        const ventas = obtenerVentas();
+        const editIndex = document.getElementById("editIndex")?.value;
+
+        const nuevaVenta = { cliente, producto, cantidad, precio, fecha };
+
+        if(editIndex !== undefined && editIndex !== "") {
+            ventas[editIndex] = nuevaVenta;
+            document.getElementById("editIndex").value = "";
+        } else {
+            ventas.push(nuevaVenta);
+        }
+
+        guardarEnLocal(ventas);
+        mostrarVentas();
+        limpiarCampos();
+    }
+
+    // ----- Eliminar venta -----
+    function eliminarVenta(index) {
+        if(confirm("¿Desea eliminar esta venta?")) {
+            const ventas = obtenerVentas();
+            ventas.splice(index, 1);
+            guardarEnLocal(ventas);
+            mostrarVentas();
+        }
+    }
+
+    // ----- Modificar venta -----
+    function modificarVenta(index) {
+        const ventas = obtenerVentas();
+        const v = ventas[index];
+
+        document.getElementById("cliente").value = v.cliente;
+        document.getElementById("producto").value = v.producto;
+        document.getElementById("cantidad").value = v.cantidad;
+        document.getElementById("precio").value = v.precio;
+        document.getElementById("fecha").value = v.fecha;
+
+        // Creamos un input oculto para guardar el índice de edición
+        if(!document.getElementById("editIndex")) {
+            const editInput = document.createElement("input");
+            editInput.type = "hidden";
+            editInput.id = "editIndex";
+            document.querySelector(".form-row").appendChild(editInput);
+        }
+
+        document.getElementById("editIndex").value = index;
+    }
+
+    // ----- Limpiar campos -----
+    function limpiarCampos() {
+        document.getElementById("cliente").value = "";
+        document.getElementById("producto").value = "";
+        document.getElementById("cantidad").value = "";
+        document.getElementById("precio").value = "";
+        document.getElementById("fecha").value = fechaActual();
+    }
+
+    // ----- Cargar ventas al iniciar -----
+    function cargarVentas() {
+        mostrarVentas();
+    }
+
+    // ----- Buscar ventas -----
+    document.getElementById("buscar").addEventListener("input", (e) => {
+        mostrarVentas(e.target.value);
+    });
+    </script>
+
+    <!-- Widget de Accesibilidad -->
+    <script src="accesibilidad-widget-v2.js"></script>
+</body>
+</html>

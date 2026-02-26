@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Burguersoft - Gestión de Promociones</title>
+<link rel="stylesheet" href="promociones.css">
+<link rel="stylesheet" href="estilos-header-lader-admin.css">
+<link rel="icon" href="img\icono.png" type="image/x-icon">
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="img/icono.png" alt="Logo Burgersoft" class="logo">
+            <hr style=" border-right: 1px solid var(--color-primario); height: 40px; margin: 0;">
+            <h2 class="nom-local">El Oriente</h2>
+        </div>
+        
+        <div class="sidebar-footer">
+            <hr style="size: 2px; width: 150px; align-self: center;">
+            <div class="sidebar-item">
+                <a href="Config Cuenta.html">
+                    <img src="img\engranaje.png" class="icono-sidebar ">
+                    CONFIGURACIÓN DE CUENTA
+                </a>
+            </div>
+            <hr style="size: 2px; width: 150px; align-self: center;">
+            <div class="sidebar-item admin-name" style="text-align: center;">
+                <a href="#" style="text-align: center; ">
+                    <img src="img\usuario.png" class="icono-sidebar">
+                    José Orduz
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-content">
+        
+        <!-- HEADER NAV PARTE SUPERIOR DERECHA-->
+        <nav class="header-nav">
+            <hr style=" border-right: 1px solid white; height: 40px;">
+            <a href="inicio_admin.html" class="nav-item">
+                <img src="img\casa.png" class="icono">
+                Inicio
+            </a>
+            <hr style=" border-right: 1px solid white; height: 40px;">
+            <a href="Menu.html" class="nav-item">
+                <img src="img\cena.png" class="icono">
+                Menú
+            </a>
+            <hr style=" border-right: 1px solid white; height: 40px;">
+            <a href="Ventas.html" class="nav-item">
+                <img src="img\insignia.png" class="icono">
+                Ventas
+            </a>
+            <hr style=" border-right: 1px solid white; height: 40px;">
+            <a href="Materia Prima.html" class="nav-item">
+                <img src="img\tratamiento-a-base-de-hierbas.png" class="icono">
+                Materia Prima
+            </a>
+            <hr style=" border-right: 2px solid white; height: 40px;">
+            <a href="Gestion Marca.html" class="nav-item">
+                <img src="img\marca-comercial.png" class="icono">
+                Gestión de Marca
+            </a>
+            <hr style=" border-right: 2px solid white; height: 40px;">
+            <a href="Promociones.html" class="nav-item">
+                <img src="img\promocion.png" class="icono">
+                Promociones
+            </a>
+            <hr style=" border-right: 2px solid white; height: 40px;">
+            <a href="Burguersoft.html" class="nav-item nav-logout">
+                <img src="img\cerrar-sesion.png" class="icono">
+                Salir
+            </a>
+        </nav>
+
+    <div class="container-promos">
+        <h1>Combos y Promociones del Local</h1>
+
+        <div class="top-bar">
+            <input type="text" id="buscar" placeholder="Buscar promoción...">
+            <button class="btn-agregar" onclick="abrirModal()">+ Añadir</button>
+        </div>
+
+        <div id="listaPromos" class="cards">
+            <div class="empty-message">No hay promociones aún. ¡Agrega la primera!</div>
+        </div>
+    </div>
+
+    <!-- FORMULARIO MODAL -->
+    <div id="formulario" class="modal">
+        <div class="modal-content">
+            <h2 id="tituloForm">Añadir Promoción</h2>
+
+            <div class="form-group">
+                <label for="nombre">Nombre *</label>
+                <input type="text" id="nombre" placeholder="Ej: Combo Burger Deluxe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" placeholder="Ej: Hamburguesa con queso, papas y bebida"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="precio">Precio *</label>
+                <input type="number" id="precio" placeholder="Ej: 15000" step="100" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="imagen">Imagen</label>
+                <input type="file" id="imagen" accept="image/*">
+                <img id="preview" class="preview">
+            </div>
+
+            <div class="modal-buttons">
+                <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn-guardar" onclick="guardarPromo()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+ <div id="widget-accesibilidad">
+    <button id="boton-accesibilidad" title="Opciones de Accesibilidad"></button>
+    <div id="menu-accesibilidad">
+        <h4>Panel de Accesibilidad</h4>
+        
+        <div class="opcion-acc">
+            <label>Tamaño de letra: <span id="val-size">100%</span></label>
+            <input type="range" id="slider-size" min="80" max="150" value="100">
+        </div>
+
+        <div class="opcion-acc">
+            <label>Tipo de fuente:</label>
+            <select id="select-font">
+                <option value="Arial, sans-serif">Predeterminada</option>
+                <option value="'Courier New', monospace">Monoespaciado</option>
+                <option value="'Georgia', serif">Elegante (Serif)</option>
+                <option value="'OpenDyslexic', sans-serif">Lectura Fácil</option>
+            </select>
+        </div>
+
+        <div class="opcion-acc">
+            <button id="btn-contraste" onclick="toggleContrast()">Activar Modo Oscuro</button>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="accesibilidad.css">
+<script src="accesibilidad.js"></script>
+
+    <script>
+        let promociones = JSON.parse(localStorage.getItem('promociones')) || [];
+        let editandoId = null;
+
+        // Mostrar lista de promociones
+        function renderPromos() {
+            const lista = document.getElementById('listaPromos');
+            const busqueda = document.getElementById('buscar').value.toLowerCase();
+            
+            const filtradas = promociones.filter(p => 
+                p.nombre.toLowerCase().includes(busqueda)
+            );
+
+            if (filtradas.length === 0) {
+                lista.innerHTML = '<div class="empty-message">No hay promociones. ¡Agrega la primera!</div>';
+                return;
+            }
+
+            lista.innerHTML = filtradas.map(p => `
+                <div class="card">
+                    ${p.imagen ? `<img src="${p.imagen}" class="card-img" alt="${p.nombre}">` : ''}
+                    <div class="card-nombre">${p.nombre}</div>
+                    ${p.descripcion ? `<div class="card-descripcion">${p.descripcion}</div>` : ''}
+                    <div class="card-precio">$${p.precio.toLocaleString()}</div>
+                    <div class="card-actions">
+                        <button class="btn-editar" onclick="editarPromo('${p.id}')">Editar</button>
+                        <button class="btn-eliminar" onclick="eliminarPromo('${p.id}')">Eliminar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Abrir modal para nueva promoción
+        function abrirModal() {
+            editandoId = null;
+            document.getElementById('tituloForm').textContent = 'Añadir Promoción';
+            document.getElementById('nombre').value = '';
+            document.getElementById('descripcion').value = '';
+            document.getElementById('precio').value = '';
+            document.getElementById('imagen').value = '';
+            document.getElementById('preview').classList.remove('show');
+            document.getElementById('formulario').classList.add('show');
+        }
+
+        // Cerrar modal
+        function cerrarModal() {
+            document.getElementById('formulario').classList.remove('show');
+            editandoId = null;
+        }
+
+        // Editar promoción
+        function editarPromo(id) {
+            const promo = promociones.find(p => p.id === id);
+            if (promo) {
+                editandoId = id;
+                document.getElementById('tituloForm').textContent = 'Editar Promoción';
+                document.getElementById('nombre').value = promo.nombre;
+                document.getElementById('descripcion').value = promo.descripcion || '';
+                document.getElementById('precio').value = promo.precio;
+                if (promo.imagen) {
+                    document.getElementById('preview').src = promo.imagen;
+                    document.getElementById('preview').classList.add('show');
+                }
+                document.getElementById('formulario').classList.add('show');
+            }
+        }
+
+        // Eliminar promoción
+        function eliminarPromo(id) {
+            if (confirm('¿Eliminar esta promoción?')) {
+                promociones = promociones.filter(p => p.id !== id);
+                guardarPromos();
+                renderPromos();
+            }
+        }
+
+        // Guardar en localStorage
+        function guardarPromos() {
+            localStorage.setItem('promociones', JSON.stringify(promociones));
+        }
+
+        // Preview de imagen
+        document.getElementById('imagen').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    document.getElementById('preview').src = event.target.result;
+                    document.getElementById('preview').classList.add('show');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Guardar promoción
+        function guardarPromo() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const descripcion = document.getElementById('descripcion').value.trim();
+            const precio = parseFloat(document.getElementById('precio').value);
+            const imagen = document.getElementById('preview').src || '';
+
+            if (!nombre || !precio) {
+                alert('Nombre y precio son requeridos');
+                return;
+            }
+
+            if (editandoId) {
+                const promo = promociones.find(p => p.id === editandoId);
+                if (promo) {
+                    promo.nombre = nombre;
+                    promo.descripcion = descripcion;
+                    promo.precio = precio;
+                    if (imagen) promo.imagen = imagen;
+                }
+            } else {
+                promociones.push({
+                    id: Date.now().toString(),
+                    nombre,
+                    descripcion,
+                    precio,
+                    imagen
+                });
+            }
+
+            guardarPromos();
+            renderPromos();
+            cerrarModal();
+        }
+
+        // Buscar en tiempo real
+        document.getElementById('buscar').addEventListener('input', renderPromos);
+
+        // Cerrar modal al hacer clic fuera
+        document.getElementById('formulario').addEventListener('click', (e) => {
+            if (e.target.id === 'formulario') cerrarModal();
+        });
+
+        // Inicial
+        renderPromos();
+    </script>
+</body>
+</html>
+
+
+
+

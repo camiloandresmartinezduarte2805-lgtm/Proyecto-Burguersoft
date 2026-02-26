@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burguersoft - Gestion de Marca</title>
+    <link rel="stylesheet" href="estilos-header-lader-admin.css">
+    <link rel="stylesheet" href="Estilo-gestionmarca.css">
+    <link rel="icon" href="img\icono.png" type="image/x-icon">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="img/icono.png" alt="Logo Burgersoft" class="logo">
+            <hr style=" border-right: 1px solid var(--color-primario); height: 40px; margin: 0;">
+            <h2 class="nom-local">El Oriente</h2>
+        </div>
+        
+        <div class="sidebar-footer">
+            <hr style="size: 2px; width: 150px; align-self: center;">
+            <div class="sidebar-item">
+                <a href="Config Cuenta.html">
+                    <img src="img\engranaje.png" class="icono-sidebar ">
+                    CONFIGURACIÓN DE CUENTA
+                </a>
+            </div>
+            <hr style="size: 2px; width: 150px; align-self: center;">
+            <div class="sidebar-item admin-name" style="text-align: center;">
+                <a href="#" style="text-align: center; ">
+                    <img src="img\usuario.png" class="icono-sidebar">
+                    José Orduz
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-content">
+        
+        <!-- HEADER NAV PARTE SUPERIOR DERECHA-->
+        <nav class="header-nav">
+            <hr style=" border-right: 1px solid white; height: 40px;">
+            <a href="inicio_admin.html" class="nav-item">
+                <img src="img\casa.png" class="icono">
+                Inicio
+            </a>
+            <hr style=" border-right: 1px solid white; height: 40px;">
+            <a href="Menu.html" class="nav-item">
+                <img src="img\cena.png" class="icono">
+                Menú
+            </a>
+            <hr style=" border-right: 1px solid white; height: 40px;">
+            <a href="Ventas.html" class="nav-item">
+                <img src="img\insignia.png" class="icono">
+                Ventas
+            </a>
+            <hr style=" border-right: 1px solid white; height: 40px;">
+            <a href="Materia Prima.html" class="nav-item">
+                <img src="img\tratamiento-a-base-de-hierbas.png" class="icono">
+                Materia Prima
+            </a>
+            <hr style=" border-right: 2px solid white; height: 40px;">
+            <a href="Gestion Marca.html" class="nav-item active">
+                <img src="img\marca-comercial.png" class="icono">
+                Gestión de Marca
+            </a>
+            <hr style=" border-right: 2px solid white; height: 40px;">
+            <a href="Promociones.html" class="nav-item">
+                <img src="img\promocion.png" class="icono">
+                Promociones
+            </a>
+            <hr style=" border-right: 2px solid white; height: 40px;">
+            <a href="Burguersoft.html" class="nav-item nav-logout">
+                <img src="img\cerrar-sesion.png" class="icono">
+                Salir
+            </a>
+        </nav>
+
+    <h1>Gestor de marcas asociadas</h1>
+
+    <!-- CONTENEDOR DE LAS TARJETAS -->
+    <div class="container" id="listaGaseosas"></div>
+
+    <!-- FORMULARIO PARA AGREGAR -->
+    <div class="form">
+        <h3>Agregar nueva Marca</h3>
+        <input type="text" id="nombre" placeholder="Nombre de la Marca">
+        <input type="text" id="imagen" placeholder="URL del logo de la empresa">
+        <button onclick="agregarGaseosa()">Agregar</button>
+    </div>
+
+   <div id="widget-accesibilidad">
+    <button id="boton-accesibilidad" title="Opciones de Accesibilidad"></button>
+    <div id="menu-accesibilidad">
+        <h4>Panel de Accesibilidad</h4>
+        
+        <div class="opcion-acc">
+            <label>Tamaño de letra: <span id="val-size">100%</span></label>
+            <input type="range" id="slider-size" min="80" max="150" value="100">
+        </div>
+
+        <div class="opcion-acc">
+            <label>Tipo de fuente:</label>
+            <select id="select-font">
+                <option value="Arial, sans-serif">Predeterminada</option>
+                <option value="'Courier New', monospace">Monoespaciado</option>
+                <option value="'Georgia', serif">Elegante (Serif)</option>
+                <option value="'OpenDyslexic', sans-serif">Lectura Fácil</option>
+            </select>
+        </div>
+
+        <div class="opcion-acc">
+            <button id="btn-contraste" onclick="toggleContrast()">Activar Modo Oscuro</button>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="accesibilidad.css">
+<script src="accesibilidad.js"></script>
+
+    <script>
+        // Lista inicial de gaseosas
+        let gaseosas = [
+            { nombre: "Coca-Cola", imagen: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Coca-Cola_logo.svg" },
+            { nombre: "Postobón", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_LaxUy5thBNfirAO3BzZ1Vg6ycOGFizhdkQ&s" },
+            { nombre: "Pepsi", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRotTJLY6boYQzoMa90OMNKP9I_h08SJPri-w&s" },
+            { nombre: "7UP", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmP7_08YovrO9pe0onkN0_Ci2ot54rlP2QrA&s" },
+            { nombre: "Sprite", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMWvazeW-gnE1bteuhiWAUxITAI2k5zn0Wxw&s" }
+        ];
+
+        // Mostrar las gaseosas
+        function mostrarGaseosas() {
+            const contenedor = document.getElementById("listaGaseosas");
+            contenedor.innerHTML = "";
+
+            gaseosas.forEach((gaseosa, index) => {
+                contenedor.innerHTML += `
+                    <div class="card">
+                        <img src="${gaseosa.imagen}" alt="${gaseosa.nombre}">
+                        <h3>${gaseosa.nombre}</h3>
+                        <button class="btn-eliminar" onclick="eliminarGaseosa(${index})">Eliminar</button>
+                    </div>
+                `;
+            });
+        }
+
+        // Agregar gaseosa
+        function agregarGaseosa() {
+            const nombre = document.getElementById("nombre").value;
+            const imagen = document.getElementById("imagen").value;
+
+            if (nombre === "" || imagen === "") {
+                alert("Completa todos los campos.");
+                return;
+            }
+
+            gaseosas.push({ nombre, imagen });
+            mostrarGaseosas();
+
+            document.getElementById("nombre").value = "";
+            document.getElementById("imagen").value = "";
+        }
+
+        // Eliminar
+        function eliminarGaseosa(index) {
+            gaseosas.splice(index, 1);
+            mostrarGaseosas();
+        }
+
+        // Mostrar al cargar
+        mostrarGaseosas();
+    </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar Código</title>
+    <link rel="stylesheet" href="recuperar-contraseña.css">
+    <link rel="icon" href="img/icono.png" type="image/x-icon">
+</head>
+<body>
+
+    <img src="img/icono.png" class="logo">
+
+    <a href="Recuperar Contraseña.html" class="btn-regresar">Regresar</a>
+
+    <div class="header-bar">VERIFICAR CÓDIGO</div>
+
+    <div class="card">
+        <div class="icono">
+            <img src="img/bloquear.png" alt="Imagen Bloqueo">
+        </div>
+
+        <p class="descripcion">
+            Ingresa el código de 6 dígitos que recibiste
+        </p>
+
+        <input type="text" class="input" placeholder="Ingresa el código" maxlength="6" required>
+
+        <button class="btn-primario">Verificar Código</button>
+
+        <a href="#" class="link">¿No recibiste el código?</a>
+
+        <div class="separador-contenedor">
+            <div class="linea"></div>
+            <span class="circulo">o</span>
+            <div class="linea"></div>
+        </div>
+
+        <a href="Registro.html" class="btn-secundario">Crear cuenta nueva</a>
+    </div>
+
+    <a href="login.html" class="footer-btn">Volver al inicio de sesión</a>
+
+     <div id="widget-accesibilidad">
+    <button id="boton-accesibilidad" title="Opciones de Accesibilidad"></button>
+    <div id="menu-accesibilidad">
+        <h4>Panel de Accesibilidad</h4>
+        
+        <div class="opcion-acc">
+            <label>Tamaño de letra: <span id="val-size">100%</span></label>
+            <input type="range" id="slider-size" min="80" max="150" value="100">
+        </div>
+
+        <div class="opcion-acc">
+            <label>Tipo de fuente:</label>
+            <select id="select-font">
+                <option value="Arial, sans-serif">Predeterminada</option>
+                <option value="'Courier New', monospace">Monoespaciado</option>
+                <option value="'Georgia', serif">Elegante (Serif)</option>
+                <option value="'OpenDyslexic', sans-serif">Lectura Fácil</option>
+            </select>
+        </div>
+
+        <div class="opcion-acc">
+            <button id="btn-contraste" onclick="toggleContrast()">Activar Modo Oscuro</button>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="accesibilidad.css">
+<script src="accesibilidad.js"></script>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 BURGUERSOFT - EL ORIENTE. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnVerificar = document.querySelector('.btn-primario');
+            const inputCodigo = document.querySelector('.input');
+
+            btnVerificar.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                    const codigoIngresado = inputCodigo.value.trim();
+                    const codigoGuardado = localStorage.getItem('recuperoCodigo');
+                    const timestamp = localStorage.getItem('recuperoTimestamp');
+                    const ahora = new Date().getTime();
+
+                // Validar que no esté vacío
+                if (!codigoIngresado) {
+                    alert('Por favor ingresa el código');
+                    return;
+                }
+
+                // Verificar si el código ha expirado (1 hora = 3600000 ms)
+                if (ahora - timestamp > 3600000) {
+                    alert('El código ha expirado. Solicita uno nuevo');
+                    localStorage.removeItem('recuperoCodigo');
+                    localStorage.removeItem('recuperoContacto');
+                    localStorage.removeItem('recuperoTimestamp');
+                    window.location.href = 'Recuperar Contraseña.html';
+                    return;
+                }
+
+                // Validar código
+                if (codigoIngresado === codigoGuardado) {
+                    alert('✓ Código verificado correctamente');
+                    // Redirigir a la página para cambiar contraseña
+                    window.location.href = 'cambiar_contraseña.html';
+                } else {
+                    alert('✗ Código incorrecto. Intenta de nuevo');
+                    inputCodigo.value = '';
+                }
+            });
+
+            // Permitir envío con Enter
+            inputCodigo.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    btnVerificar.click();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

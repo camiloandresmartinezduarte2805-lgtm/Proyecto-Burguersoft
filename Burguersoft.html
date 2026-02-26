@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BURGUERSOFT</title>
+    <link rel="icon" href="img\icono.png" type="image/x-icon">
+    <link rel="stylesheet" href="Estilos-paginas-clientes.css">
+    <script src="Hero-Carrusel.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <a href="Burguersoft.html" class="logo"></a>
+            <hr>
+            <a href="El Oriente.html" class="nom-local">El Oriente</a>
+        </div>
+
+        <nav class="header-center">
+            <a href="Burguersoft.html">Inicio</a>
+            <a href="El Oriente.html">El Oriente</a>
+            <a href="Ir al Menu.html">Ir al Menú</a>
+            <a href="Contactanos.html">Contacto</a>
+        </nav>
+        
+        <a class="header-right" href="login.html">
+            <button class="btn-sesion">
+                <img src="img\Icono persona.png" alt="User Icon"> 
+            </button>
+        </a>
+    </header>
+
+    <section class="hero">
+            <div class="carousel-container">
+            <div class="carousel-slide active" style="background-image: url('https://www.recetasnestle.com.ec/sites/default/files/srh_recipes/4e4293857c03d819e4ae51de1e86d66a.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('https://ranchera.com.co/wp-content/uploads/2022/11/perro-colombiano-1.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('https://chefstv.net/wp-content/uploads/2024/03/0045-empanadas-saltenas-fritas-wide-web.webp');"></div>
+            <div class="carousel-slide" style="background-image: url('https://www.elespectador.com/resizer/v2/4YMEEW2QBVGALOUC7LSPUFNKMU.jpg?auth=1913090d3e141e8a3ccce35509259201363e9dddf853024e2f30ac71ce6383a9&width=1110&height=739&smart=true&quality=60');"></div>
+        </div>
+    </section>  
+
+
+    <section class="promociones">
+        <h2>Combos Diarios</h2>
+        <p>Disfruta de nuestros combos exclusivos por tiempo limitado. ¡No te los pierdas!</p>
+        <div class="productos-grid">
+            <div class="product-card">
+                <span class="sale-badge">-20%</span>
+                <img src="img\25110838-removebg-preview.png" alt="Hamburguesa sencilla + Coca-Cola 400ml" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Hamburguesa Sencilla + Coca-Cola 400ml</div>
+                    <div class="price-container">
+                        <span class="old-price">$9.000</span>
+                        <span class="new-price">$7.200</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <span class="sale-badge">-20%</span>
+                <img src="https://b2cqbano.vtexassets.com/arquivos/ids/156186/Tiburon-Combo-perro-sencillo-600x600.png?v=638905187713700000" alt="Perro Caliente + Papa Francesa + Coca-Cola 400ml" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Perro Caliente + Papa Francesa + Coca-Cola 400ml</div>
+                    <div class="price-container">
+                        <span class="old-price">$15.000</span>
+                        <span class="new-price">$12.000</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <span class="sale-badge">-20%</span>
+                <img src="img\descarga.png" alt="Salchipapa + Pepsi 400ml + Empanada" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Salchipapa + Pepsi 400ml + Empanada</div>
+                    <div class="price-container">
+                        <span class="old-price">$14.500</span>
+                        <span class="new-price">$11.500</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <span class="sale-badge">-20%</span>
+                <img src="img\descarga (1).png" alt="Arepa + Chorizo + Manzana Postobón 400m" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Arepa + Chorizo + Manzana Postobón 400ml</div>
+                    <div class="price-container">
+                        <span class="old-price">$7.500</span>
+                        <span class="new-price">$6.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    </section>
+    
+   <div id="widget-accesibilidad">
+    <button id="boton-accesibilidad" title="Opciones de Accesibilidad"></button>
+    <div id="menu-accesibilidad">
+        <h4>Panel de Accesibilidad</h4>
+        
+        <div class="opcion-acc">
+            <label>Tamaño de letra: <span id="val-size">100%</span></label>
+            <input type="range" id="slider-size" min="80" max="150" value="100">
+        </div>
+
+        <div class="opcion-acc">
+            <label>Tipo de fuente:</label>
+            <select id="select-font">
+                <option value="Arial, sans-serif">Predeterminada</option>
+                <option value="'Courier New', monospace">Monoespaciado</option>
+                <option value="'Georgia', serif">Elegante (Serif)</option>
+                <option value="'OpenDyslexic', sans-serif">Lectura Fácil</option>
+            </select>
+        </div>
+
+        <div class="opcion-acc">
+            <button id="btn-contraste" onclick="toggleContrast()">Activar Modo Oscuro</button>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="accesibilidad.css">
+<script src="accesibilidad.js"></script>
+
+    <footer>
+        <div class="footer-content">
+            <br><br>
+            <p>&copy; 2025 BURGUERSOFT - EL ORIENTE. Todos los derechos reservados.</p>
+            <br><br>
+        </div>
+    </footer>
+</body>
+</html>

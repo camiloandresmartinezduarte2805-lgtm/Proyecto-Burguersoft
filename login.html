@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar Sesión - BurgerSoft</title>
+    <link rel="stylesheet" href="estilos-login.css">
+    <link rel="icon" href="img\icono.png" type="image/x-icon">
+    <script src="login.js" defer></script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <img src="img\icono.png" class="logo">
+        <a href="Burguersoft.html" class="btn-regresar"> Regresar</a>
+    </div>
+
+    <!-- CONTENEDOR QUE CENTRA EL FORMULARIO -->
+    <div class="header-bar">INICIAR SESIÓN</div>
+<div class="card">
+    <form id="loginForm">
+        
+        <h2>CORREO</h2>
+        <input type="email" id="email" class="input" placeholder="ejemplo@gmail.com" required>
+        
+        <h2>CONTRASEÑA</h2>
+        <input type="password" id="password" class="input" placeholder="Ingresa tu contraseña" required>
+        
+        <button type="submit" id="botonEntrar" class="btn-primario">INICIAR SESIÓN</button>
+
+        <a href="Recuperar Contraseña.html" class="link">¿Recuperar tu contraseña?</a>
+        
+        <div class="separador-contenedor">
+            <div class="linea"></div>
+            <span class="circulo">o</span>
+            <div class="linea"></div>
+        </div>
+    
+        <div class="enlace-externo">
+            ¿No tienes una cuenta?
+            <a href="Registro.html">Crear cuenta</a>
+        </div>
+        
+    </form> </div>
+
+<div>
+
+     <div id="widget-accesibilidad">
+    <button id="boton-accesibilidad" title="Opciones de Accesibilidad"></button>
+    <div id="menu-accesibilidad">
+        <h4>Panel de Accesibilidad</h4>
+        
+        <div class="opcion-acc">
+            <label>Tamaño de letra: <span id="val-size">100%</span></label>
+            <input type="range" id="slider-size" min="80" max="150" value="100">
+        </div>
+
+        <div class="opcion-acc">
+            <label>Tipo de fuente:</label>
+            <select id="select-font">
+                <option value="Arial, sans-serif">Predeterminada</option>
+                <option value="'Courier New', monospace">Monoespaciado</option>
+                <option value="'Georgia', serif">Elegante (Serif)</option>
+                <option value="'OpenDyslexic', sans-serif">Lectura Fácil</option>
+            </select>
+        </div>
+
+        <div class="opcion-acc">
+            <button id="btn-contraste" onclick="toggleContrast()">Activar Modo Oscuro</button>
+        </div>
+    </div>
+    
+</div>
+
+
+
+<link rel="stylesheet" href="accesibilidad.css">
+
+<script src="accesibilidad.js"></script>
+
+
+
+    <footer>
+        
+        <div class="footer-content"></div>
+        
+        <p>&copy; 2025 BURGUERSOFT - EL ORIENTE. Todos los derechos reservados.</p>     
+    </footer>
+</body>
+</html>

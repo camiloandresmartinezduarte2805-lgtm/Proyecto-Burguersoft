@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar contraseña</title>
+    <link rel="stylesheet" href="recuperar-contraseña.css">
+    <link rel="icon" href="img/icono.png" type="image/x-icon">
+</head>
+<body>
+
+    <img src="img/icono.png" class="logo">
+
+    <a href="login.html" class="btn-regresar">Regresar</a>
+
+    <div class="header-bar">CAMBIAR CONTRASEÑA</div>
+
+    <div class="card">
+        <div class="icono">
+            <img src="img/bloquear.png" alt="Imagen Bloqueo">
+        </div>
+
+        <p class="descripcion">
+            Ingresa la nueva contraseña para tu cuenta.
+        </p>
+
+        <input id="newPass" type="password" class="input" placeholder="Nueva contraseña" required>
+        <input id="confirmPass" type="password" class="input" placeholder="Confirmar contraseña" required>
+
+        <button id="btnCambiar" class="btn-primario">Cambiar contraseña</button>
+
+        <a href="#" class="link">¿No recuerdas tu correo?</a>
+
+        <div class="separador-contenedor">
+            <div class="linea"></div>
+            <span class="circulo">o</span>
+            <div class="linea"></div>
+        </div>
+
+        <a href="Registro.html" class="btn-secundario">Crear cuenta nueva</a>
+    </div>
+
+    <a href="login.html" class="footer-btn">Volver al inicio de sesión</a>
+
+     <div id="widget-accesibilidad">
+    <button id="boton-accesibilidad" title="Opciones de Accesibilidad"></button>
+    <div id="menu-accesibilidad">
+        <h4>Panel de Accesibilidad</h4>
+        
+        <div class="opcion-acc">
+            <label>Tamaño de letra: <span id="val-size">100%</span></label>
+            <input type="range" id="slider-size" min="80" max="150" value="100">
+        </div>
+
+        <div class="opcion-acc">
+            <label>Tipo de fuente:</label>
+            <select id="select-font">
+                <option value="Arial, sans-serif">Predeterminada</option>
+                <option value="'Courier New', monospace">Monoespaciado</option>
+                <option value="'Georgia', serif">Elegante (Serif)</option>
+                <option value="'OpenDyslexic', sans-serif">Lectura Fácil</option>
+            </select>
+        </div>
+
+        <div class="opcion-acc">
+            <button id="btn-contraste" onclick="toggleContrast()">Activar Modo Oscuro</button>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="accesibilidad.css">
+<script src="accesibilidad.js"></script>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 BURGUERSOFT - EL ORIENTE. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+<script>
+    document.getElementById('btnCambiar').addEventListener('click', async function(e) {
+        e.preventDefault();
+        const p1 = document.getElementById('newPass').value.trim();
+        const p2 = document.getElementById('confirmPass').value.trim();
+        const email = localStorage.getItem('recuperoEmail');
+
+        if (p1 !== p2) { alert('Las contraseñas no coinciden'); return; }
+        if (!email) { alert('Sesión expirada'); window.location.href = 'Recuperar Contraseña.html'; return; }
+
+        try {
+            const response = await fetch('http://localhost:3000/cambiar-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ correo: email, nuevaPassword: p1 })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                alert(data.mensaje);
+                localStorage.clear(); 
+                window.location.href = 'login.html';
+            } else {
+                alert('Error: ' + data.mensaje);
+            }
+        } catch (error) {
+            alert('No se pudo conectar con el servidor.');
+        }
+    });
+</script>
+</body>
+</html>

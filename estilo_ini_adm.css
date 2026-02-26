@@ -1,0 +1,272 @@
+:root {
+    --color-principal-oscuro: #3d2111;
+    --color-header-fondo: #fbfbfb;
+    --color-destacado: #F18921;
+    --color-fondo-principal: #f6f5e4;
+    --color-texto-claro: white;
+    --color-texto-oscuro: black;
+    --ancho-sidebar: 200px;
+    --alto-header: 80px;
+}
+
+/* RESET GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--color-fondo-principal);
+    color: var(--color-texto-oscuro);
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* -----------------------------------
+   SIDEBAR IZQUIERDA
+----------------------------------- */
+.nom-local {
+    color: #F18921;
+    font-family: 'Lucida Sans';
+    font-size: 25px;
+    font-weight: 900;
+    text-decoration: none;
+    margin-left: 10px;
+    margin-top: 0px;
+    text-align: left;
+}
+
+.sidebar {
+    width: var(--ancho-sidebar);
+    background-color: var(--color-principal-oscuro);
+    color: var(--color-texto-claro);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-header {
+    height: var(--alto-header);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background-color: var(--color-fondo-principal);
+}
+
+.logo {
+    width: 75px;
+    height: 70px;
+}
+
+/* Footer del sidebar */
+.sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.sidebar-item {
+    padding: 20px;
+    transition: background 0.2s;
+    text-align: center;
+}
+
+.sidebar-item:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.sidebar-item a {
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+}
+
+.sidebar-item.admin-name {
+    background-color: var(--color-principal-oscuro);
+    text-align: center;
+}
+
+.icono-sidebar {
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+/* -----------------------------------
+   AREA PRINCIPAL
+----------------------------------- */
+
+.main-content {
+    margin-left: var(--ancho-sidebar);
+    width: calc(100% - var(--ancho-sidebar));
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------------- HEADER NAV ---------------- */
+
+.header-nav {
+    display: flex;
+    justify-content: flex-end;       /* TODO A LA DERECHA */
+    align-items: center;
+    height: var(--alto-header);
+    background: #F18921;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    width: calc(100% - var(--ancho-sidebar));
+    z-index: 5;
+}
+
+.nav-item {
+    display: flex;
+    flex: 0 0 auto;
+    width: 150px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 25px;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background 0.2s;
+    text-align: center;
+}
+
+.nav-item:hover {
+    background-color: #d16900;
+}
+
+.nav-item.active {
+    background-color: #d16900;
+    color: white;
+    border-left: none;
+}
+
+.nav-item.active:hover {
+    background-color: #F18921;
+    cursor: default;
+}
+
+.icono {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 4px;
+}
+
+/* ---------------- BIENVENIDA ---------------- */
+
+.dashboard-section {
+    padding-top: var(--alto-header);
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-card {
+    text-align: center;
+}
+
+.dashboard-section h3 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.profile-icon {
+    width: 400px;
+    height: 400px;
+
+
+}
+/*ESTILOS TABLA ADMINISTRACIÓN MATERIA PRIMA*/
+.contenedor {
+    margin-top: 100px;
+    width: 90%;
+    margin: 30px auto;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.formulario, .busqueda {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.formulario input, .busqueda input {
+    padding: 8px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    flex: 1;
+}
+
+button {
+    padding: 8px 15px;
+    background: #F18921;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #d16900;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.accion {
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+    font-size: 12px;
+}
+
+.editar { 
+    background: #2d89ef;
+    background-image: url("C:\Users\senita\Desktop\Proyecto Burguersoft\img\lapiz (1).png");
+ }
+
+.eliminar { 
+    background: #d9534f;
+    background-image: url("C:\Users\senita\Desktop\Proyecto Burguersoft\img\eliminar (1).png");
+}

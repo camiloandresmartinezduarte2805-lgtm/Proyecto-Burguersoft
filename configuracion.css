@@ -1,0 +1,186 @@
+/*  Variables CSS para consistencia */
+:root {
+    --color-fondo: #f6f5e4;
+    --color-principal: #f18921;
+    --color-secundario: #dbc681;
+    --color-peligro: #c3402a;
+    --color-texto: #000000;
+    --color-input-bg: #3d2111;
+    --color-input-text: #fff;
+    --border-radius: 8px;
+    --font-family: Arial, sans-serif;
+    --transition-speed: 0.3s;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--color-fondo);
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2 {
+    margin: 0;
+    color: var(--color-texto);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+h2 {
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Container principal */
+.container {
+    background: var(--color-fondo);
+    margin: 100px auto;
+    width: 700px;
+    padding: 30px;
+    border-radius: 12px;
+    filter: drop-shadow(0 0 10px var(--color-principal));
+    border: 2px solid var(--color-principal);
+}
+
+/* Formularios */
+.campo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    color: var(--color-texto);
+}
+
+input, select {
+    margin-top: 7px;
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color-input-bg);
+    color: var(--color-input-text);
+    border: 1px solid #fcfcfc;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    transition: border-color var(--transition-speed), outline var(--transition-speed);
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid var(--color-principal);
+    outline-offset: 2px;
+    border-color: var(--color-principal);
+}
+
+select option {
+    background-color: var(--color-input-bg);
+    color: var(--color-input-text);
+}
+
+/* ==============================
+   Botones
+============================== */
+button {
+    font-family: var(--font-family);
+    cursor: pointer;
+    border: none;
+    border-radius: var(--border-radius);
+    transition: background var(--transition-speed);
+}
+
+.btn-guardar {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--color-principal);
+    color: #fff;
+    font-size: 16px;
+    margin-top: 25px;
+}
+
+.btn-guardar:hover {
+    background-color: var(--color-secundario);
+}
+
+.acciones-extra {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.btn-secundario,
+.btn-peligro {
+    width: 48%;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.btn-secundario {
+    background-color: var(--color-principal);
+    color: #fff;
+}
+
+.btn-secundario:hover {
+    background-color: var(--color-secundario);
+}
+
+.btn-peligro {
+    background-color: var(--color-peligro);
+    color: #fff;
+}
+
+.btn-peligro:hover {
+    background-color: #e3aba5;
+}
+
+/* Botón regresar fijo */
+.btn-regresar {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--color-principal);
+    color: #fff;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: none;
+    z-index: 100;
+}
+
+.btn-regresar:hover {
+    background-color: var(--color-secundario);
+}
+
+/* ==============================
+   Media Queries
+============================== */
+@media(max-width: 768px) {
+    .container {
+        width: 90%;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .btn-regresar {
+        top: 10px;
+        right: 10px;
+        font-size: 16px;
+        padding: 10px 12px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}

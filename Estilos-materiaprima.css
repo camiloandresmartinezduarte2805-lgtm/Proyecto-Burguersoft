@@ -1,0 +1,76 @@
+/*ESTILOS TABLA ADMINISTRACIÓN MATERIA PRIMA*/
+body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f6f5e4;
+        margin-top: 100px;
+        margin-bottom: -100px;
+    }
+
+.contenedor {
+    margin-top: 100px;
+    width: 90%;
+    margin: 30px auto;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.formulario, .busqueda {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.formulario input, .busqueda input {
+    padding: 8px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    flex: 1;
+}
+
+button {
+    padding: 8px 15px;
+    background: #F18921;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #d16900;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.accion {
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+    font-size: 12px;
+}
+
+.editar { 
+    background: #2d89ef;
+    background-image: url("C:\Users\senita\Desktop\Proyecto Burguersoft\img\lapiz (1).png");
+ }
+
+.eliminar { 
+    background: #d9534f;
+    background-image: url("C:\Users\senita\Desktop\Proyecto Burguersoft\img\eliminar (1).png");
+}

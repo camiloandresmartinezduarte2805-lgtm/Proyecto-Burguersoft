@@ -1,0 +1,298 @@
+/* --- 1. CONFIGURACIÓN DEL WIDGET FLOTANTE --- */
+#widget-accesibilidad { 
+    position: fixed;    /* Se queda fijo en la pantalla aunque hagas scroll */
+    bottom: 25px;       /* Separación desde abajo */
+    right: 25px;        /* Separación desde la derecha */
+    z-index: 1000000;   /* Número muy alto para que siempre esté por encima de todo */
+}
+
+/* El botón circular con el icono del muñeco */
+#boton-accesibilidad {
+    background: #F18921 !important;        /* Naranja principal */
+    border: 1px solid #3d2111 !important;  /* Borde café oscuro */
+    border-radius: 50% !important;         /* Lo hace un círculo perfecto */
+    width: 60px !important;
+    height: 60px !important;
+    cursor: pointer !important;            /* Cambia el cursor a mano al pasar encima */
+    display: flex;
+    align-items: center;                   /* Centra el icono verticalmente */
+    justify-content: center;               /* Centra el icono horizontalmente */
+    font-size: 0 !important;               /* Oculta texto basura si existiera */
+}
+
+/* El icono del muñeco dentro del botón */
+#boton-accesibilidad::before {
+    content: "🧍";                        /* Icono de accesibilidad */
+    font-size: 32px !important;
+    filter: grayscale(100%) brightness(0); /* Lo pone totalmente negro */
+    display: block;
+}
+
+/* Evitamos que el fondo negro sólido tape los degradados de los contenedores de imágenes */
+
+/*  DISEÑO DEL PANEL DE OPCIONES */
+#menu-accesibilidad {
+    display: none;                         /* Oculto por defecto */
+    background: #ffffff !important;        /* Fondo blanco inicial */
+    border-radius: 15px !important;
+    padding: 20px !important;
+    width: 260px !important;
+    position: absolute;                    /* Se posiciona respecto al widget */
+    bottom: 75px;                          /* Aparece justo arriba del botón circular */
+    right: 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important; /* Sombra suave para dar profundidad */
+    border: 1px solid #F18921 !important;
+}
+
+/* Clase que se activa mediante JavaScript al hacer clic */
+#menu-accesibilidad.active { display: block !important; }
+
+/* Título del menú */
+#menu-accesibilidad h4 {
+    margin: 0 0 20px 0 !important;
+    text-align: center !important;
+    border-bottom: 2px solid #F18921 !important; /* Línea decorativa naranja */
+    padding-bottom: 8px !important;
+}
+
+/* Contenedores de cada opción (Tamaño, Fuente, etc.) */
+.opcion-acc { 
+    margin-bottom: 20px !important; 
+    position: relative !important;         /* Permite que el % se posicione dentro */
+}
+
+.opcion-acc label { 
+    display: block !important; 
+    font-size: 14px !important; 
+    font-weight: bold !important; 
+    margin-bottom: 10px !important; 
+}
+
+/* El número del porcentaje  (110%) que aparece a la derecha */
+#val-size { 
+    position: absolute !important; 
+    top: 0; 
+    right: 0; 
+    color: #F18921 !important; 
+}
+
+/*  REGLAS PARA EL MODO OSCURO (CONTRASTE ALTO)*/
+
+/* Cuando el Body tiene la clase .modo-oscuro-accesible, todo lo de abajo cambia */
+body.modo-oscuro-accesible {
+    background-color: #121212 !important; /* Fondo casi negro */
+}
+
+
+/* Cambia fondos de contenedores grandes */
+body.modo-oscuro-accesible header,
+body.modo-oscuro-accesible footer,
+body.modo-oscuro-accesible section,
+body.modo-oscuro-accesible main {
+    background-color: #121212 !important;
+    background-image: none !important;    /* Quita texturas o imágenes de fondo */
+}
+
+/* Protección de imágenes: asegura que sigan siendo visibles */
+body.modo-oscuro-accesible img {
+    background-color: transparent !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Cambio masivo de color de texto a BLANCO */
+body.modo-oscuro-accesible p, 
+body.modo-oscuro-accesible span, 
+body.modo-oscuro-accesible li, 
+body.modo-oscuro-accesible a,
+body.modo-oscuro-accesible th,
+body.modo-oscuro-accesible label:not(#menu-accesibilidad label) {
+    color: #ffffff !important;
+}
+
+/* Cambio de color de Títulos a NARANJA */
+body.modo-oscuro-accesible h1, 
+body.modo-oscuro-accesible h2, 
+body.modo-oscuro-accesible h3, 
+body.modo-oscuro-accesible .product-name {
+    color: #F18921 !important;
+}
+
+/* Estilo para las tarjetas de las hamburguesas en modo oscuro */
+body.modo-oscuro-accesible .product-card,
+body.modo-oscuro-accesible .card {
+    background-color: #1e1e1e !important; /* Gris oscuro para resaltar del fondo */
+    border: 1px solid #333 !important;
+}
+
+/* El propio menú de accesibilidad se vuelve oscuro */
+body.modo-oscuro-accesible #menu-accesibilidad {
+    background: #1e1e1e !important;
+    color: white !important;
+}
+
+/* Botón de activar/desactivar dentro del menú */
+#btn-contraste {
+    width: 100% !important;
+    padding: 12px !important;
+    background: #F18921 !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+}
+
+/* ---  AJUSTES ESPECÍFICOS PARA EL CARRITO --- */
+body.modo-oscuro-accesible #carrito {
+    background-color: #1e1e1e !important; 
+    border: 2px solid #F18921 !important;  
+    color: #ffffff !important;             
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8) !important;
+}
+
+/* Asegura que los textos internos del carrito no se pierdan */
+body.modo-oscuro-accesible #carrito div, 
+body.modo-oscuro-accesible #carrito span,
+body.modo-oscuro-accesible #carrito li {
+    background-color: transparent !important;
+    color: #ffffff !important;
+}
+
+/* Botones del carrito (Pagar, Vaciar, etc.) */
+body.modo-oscuro-accesible #carrito button {
+    background-color: #F18921 !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+/* ESTILO DE INPUTS EN MODO OSCURO (LOGIN, CAMBIO DE CONTRASEÑA, RECUPERAR CONTRASEÑA, VERIFICAR CÓDIGO)  */
+
+/* Cambia el fondo y el texto de todos los inputs de texto y correos */
+body.modo-oscuro-accesible input[id="categoria"],
+body.modo-oscuro-accesible input[type="file"],
+body.modo-oscuro-accesible input[type="datetime-local"],
+body.modo-oscuro-accesible input[type="number"],
+body.modo-oscuro-accesible input[type="text"],
+body.modo-oscuro-accesible input[type="email"],
+body.modo-oscuro-accesible input[type="password"],
+body.modo-oscuro-accesible input[type="date"],
+body.modo-oscuro-accesible textarea {
+    background-color: #252525 !important; /* Gris oscuro pero que resalta del fondo */
+    color: #ffffff !important;           /* Texto blanco al escribir */
+    border: 1px solid #444 !important;    /* Borde sutil */
+    padding: 12px !important;
+    border-radius: 8px !important;
+}
+
+/* Cambia el color del texto de ayuda (ejemplo@gmail.com) */
+body.modo-oscuro-accesible input::placeholder {
+    color: #aaaaaa !important; /* Gris claro para que sea legible */
+    opacity: 1;
+}
+
+/* Efecto cuando el usuario hace clic para escribir (Focus) */
+body.modo-oscuro-accesible input:focus {
+    border-color: #F18921 !important; /* Borde naranja brillante */
+    outline: none !important;
+    box-shadow: 0 0 5px rgba(241, 137, 33, 0.5) !important; /* Resplandor naranja */
+}
+
+/* Si tienes etiquetas (labels) encima de los inputs */
+body.modo-oscuro-accesible .formulario label {
+    color: #F18921 !important; /* Títulos de los campos en naranja */
+    font-weight: bold !important;
+}
+
+/* Oscurecemos el contenedor blanco grande */
+body.modo-oscuro-accesible .contenedor-form, 
+body.modo-oscuro-accesible div[style*="background-color: white"], 
+body.modo-oscuro-accesible div[style*="background: white"] {
+    background-color: #121212 !important; /* Gris oscuro para que no sea negro puro */
+    border: 1px solid #333 !important;
+    color: #ffffff !important;
+}
+
+/* Arreglamos el selector (el que dice "Seleccione...") */
+body.modo-oscuro-accesible select {
+    background-color: #252525 !important;
+    color: #ffffff !important;
+    border: 1px solid #F18921 !important; /* Borde naranja para que combine */
+    padding: 8px !important;
+    border-radius: 5px !important;
+}
+
+/* Arreglamos el estilo de la tabla de ventas en el modo oscuro */
+body.modo-oscuro-accesible .main-content,
+body.modo-oscuro-accesible table[style*="background-color: #f1efc6"],
+body.modo-oscuro-accesible table[style*="background: #f1efc6"] {
+    background-color: #121212 !important; /* Gris oscuro para que no sea negro puro */
+    color: #ffffff !important;
+}
+
+body.modo-oscuro-accesible .main-content th, 
+body.modo-oscuro-accesible [class*="tablaVentas"] {
+    background-color: #1e1e1e !important; /* Gris oscuro */
+    color: #f1efc6 !important;           /* Texto naranja para los títulos */
+    border-bottom: 2px solid #333 !important;
+}
+
+/* Filas de la tabla o lista de ventas */
+body.modo-oscuro-accesible .fila-venta, 
+body.modo-oscuro-accesible tr, 
+body.modo-oscuro-accesible li {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid #333 !important;
+}
+
+/* Botones de guardar en la tabla de ventas */
+body.modo-oscuro-accesible .save-btn, 
+body.modo-oscuro-accesible button[style*="background"] {
+    background-color: #f1efc6!important;
+    color: rgb(0, 0, 0) !important;
+    border: none !important;
+    opacity: 1 !important;
+}
+
+/* Cambiar fondo de color en el logo y nombre del local*/
+body.modo-oscuro-accesible .sidebar-header,
+body.modo-oscuro-accesible .nom-local {
+    background-color: #1e1e1e !important;
+    color: #f1efc6 !important;
+    opacity: 1 !important;
+    font-weight: normal !important;
+}
+
+body.modo-oscuro-accesible .logo,
+body.modo-oscuro-accesible .logon {
+    filter: drop-shadow(0 0 10px #f1efc6)
+}
+
+body.modo-oscuro-accesible .container,
+body.modo-oscuro-accesible .contenedor {
+    background-color: #121212 !important
+}
+
+body.modo-oscuro-accesible .encabezado h2 {
+    color: #1e1e1e !important;
+    font-size: 30px !important;
+}
+
+body.modo-oscuro-accesible .encabezado p {
+    color: #1e1e1e !important;
+    font-size: 18px !important;
+}
+
+body.modo-oscuro-accesible .enlace-externo  {
+    color: #fffdfd !important;
+}
+body.modo-oscuro-accesible .form {
+    background-color: #1e1e1e !important;
+    border : 1px solid #F18921 !important;
+}
+body.modo-oscuro-accesible .container-promos,
+body.modo-oscuro-accesible .modal-content {
+    background-color: #1e1e1e !important;
+    border: 1px solid #F18921 !important;
+}

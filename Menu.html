@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burgersoft - Gestión del Menú</title>
+    <link rel="stylesheet" href="estilos-header-lader-admin.css">
+    <link rel="icon" href="img/icono.png" type="image/x-icon">
+</head>
+<body>
+
+    <!-- SIDEBAR IZQUIERDO -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="img/icono.png" alt="Logo Burgersoft" class="logo">
+            <hr style="border-right: 0px solid var(--color-primario); height: 40px;">
+            <h2 class="nom-local">El Oriente</h2>
+        </div>
+
+        <div class="sidebar-footer">
+            <hr style="size: 2px; width: 150px; align-self: center;">
+            <div class="sidebar-item">
+                <a href="Config Cuenta.html">
+                    <img src="img/engranaje.png" class="icono-sidebar">
+                    CONFIGURACIÓN DE CUENTA
+                </a>
+            </div>
+
+            <hr style="size: 2px; width: 150px; align-self: center;">
+            <div class="sidebar-item admin-name" style="text-align: center;">
+                <a href="#" style="text-align: center;">
+                    <img src="img/usuario.png" class="icono-sidebar">
+                    José Orduz
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-content">
+        
+        <!-- HEADER NAV DERECHA -->
+        <nav class="header-nav">
+            <hr style="border-right: 1px solid white; height: 40px;">
+            <a href="inicio_admin.html" class="nav-item">
+                <img src="img/casa.png" class="icono">
+                Inicio
+            </a>
+
+            <hr style="border-right: 1px solid white; height: 40px;">
+            <a href="Menu.html" class="nav-item active">
+                <img src="img/cena.png" class="icono">
+                Menú
+            </a>
+
+            <hr style="border-right: 1px solid white; height: 40px;">
+            <a href="Ventas.html" class="nav-item">
+                <img src="img/insignia.png" class="icono">
+                Ventas
+            </a>
+
+            <hr style="border-right: 1px solid white; height: 40px;">
+            <a href="Materia Prima.html" class="nav-item">
+                <img src="img/tratamiento-a-base-de-hierbas.png" class="icono">
+                Materia Prima
+            </a>
+
+            <hr style="border-right: 2px solid white; height: 40px;">
+            <a href="Gestion marca.html" class="nav-item">
+                <img src="img/marca-comercial.png" class="icono">
+                Gestión de Marca
+            </a>
+
+            <hr style="border-right: 2px solid white; height: 40px;">
+            <a href="Promociones.html" class="nav-item">
+                <img src="img/promocion.png" class="icono">
+                Promociones
+            </a>
+
+            <hr style="border-right: 2px solid white; height: 40px;">
+            <a href="Burguersoft.html" class="nav-item nav-logout">
+                <img src="img/cerrar-sesion.png" class="icono">
+                Salir
+            </a>
+        </nav>
+
+    <style>
+        :root { 
+            --color-primario: #3d2111; 
+            --color-secundario: #F18921; 
+            --color-alertas: #C3402A; 
+            --color-fondo: #f6f5e4; 
+        }
+
+        .price-container { 
+            font-family: 'Lucida Sans';
+            display: flex; 
+            gap: 10px; 
+            align-items: center; 
+        }
+
+        .productos-grid {
+            width: 100%;
+            margin: 0 auto;
+            display: grid !important; 
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+            padding: 20px 20px; 
+        }
+
+        .product-info { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 4px; 
+            font-weight: 600;
+        }
+
+        .product-card {
+            background: var(--color-fondo);
+            border: 1px solid var(--color-primario);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+
+        .product-card:hover { 
+            transform: translateY(-5px); 
+            filter: drop-shadow(0 0 8px var(--color-primario));
+        }
+
+        .product-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 10px;
+        }
+
+        .product-name { 
+            font-family: 'Lucida Sans';
+            font-weight: 900;
+            color: var(--color-primario);
+            font-size: 16px; 
+        }
+
+        .product-price { 
+            font-family: 'Lucida Sans';
+            font-size: 18px; 
+            color: var(--color-alertas);
+            font-weight: 700; 
+            margin-top: auto; 
+        }
+
+        .Menu-section {
+            padding: 40px 20px;
+            background-color: var(--color-fondo);
+            color: var(--color-primario);
+        }
+
+        .Menu-section h2 {
+            font-family: 'Lucida Sans';
+            font-size: 35px;
+            margin-bottom: 20px;
+            text-align: left;
+            padding-left: 10%;
+        }
+
+        /* FORMULARIO */
+        #formProducto{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:10px;
+            margin-top:10px;
+        }
+        #formProducto input{
+            padding:7px;
+            border:1px solid #3d2111;
+            border-radius:5px;
+        }
+        #formProducto button{
+            grid-column:1/3;
+            padding:10px;
+            background:#F18921;
+            color:white;
+            border:none;
+            font-weight:bold;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+         body{
+            font-family: Arial;
+            background:#f7f4ef;
+            margin:0;
+            margin-top: 100px;
+        }
+
+        
+
+        /* CONTENEDOR FORM */
+        .contenedor-form{
+            padding:20px;
+            background:white;
+            border-radius:10px;
+            margin-bottom:25px;
+            margin-top: 10PX;
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+
+        #formProducto{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:10px;
+            margin-top:10px;
+        }
+
+        #formProducto input, #formProducto select{
+            padding:7px;
+            border:1px solid #3d2111;
+            border-radius:5px;
+        }
+
+        #formProducto button{
+            grid-column:1/3;
+            padding:10px;
+            background:#F18921;
+            color:white;
+            border:none;
+            font-weight:bold;
+            border-radius:8px;
+            cursor:pointer;
+        }
+        .btn-guardar{
+            grid-column:1/3;
+            padding:10px;
+            background:#F18921;
+            color:white;
+            border:none;
+            font-weight:bold;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+        .btn-guarda:hover{
+            background-color: #3d2111;
+            color: #f6f5e4;
+        }
+
+        /* VISTA PREVIA DE IMAGEN CARGADA */
+        .preview {
+            display: none;
+            width: 150px;       
+            height: auto;       
+            max-height: 150px;  
+            object-fit: contain; 
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc; 
+        }
+        .preview.show {
+            display: block;
+        }
+
+
+        /* BUSCADOR */
+        #buscar{
+            width:96.5%;
+            padding:15px;
+            margin-bottom:20px;
+            border:2px solid #3d2111;
+            border-radius:8px;
+            margin-left: 30px;
+            margin-right: 70px;
+        }
+
+        /* PRODUCTOS */
+        .lista-productos{
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+            gap:20px;
+        }
+
+        .producto{
+            background:white;
+            border:2px solid #3d2111;
+            border-radius:10px;
+            padding:10px;
+            text-align:center;
+        }
+
+        .producto img{
+            width:100%;
+            height:150px;
+            object-fit:cover;
+            border-radius:8px;
+        }
+
+        .btn{
+            padding:7px;
+            width:45%;
+            border:none;
+            margin-top:5px;
+            border-radius:5px;
+            cursor:pointer;
+            font-weight:bold;
+        }
+
+        .editar{
+            background:#1f7cff;
+            color:white;
+        }
+
+        .eliminar{
+            background:#d21f1f;
+            color:white;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 6px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .btn-edit {
+            background: #0077cc;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #cc0000;
+            color: white;
+        }
+    </style>
+
+    <div class="contenedor-form">
+        <h2>Gestión de Productos</h2>
+
+        <form id="formProducto">
+            <input type="hidden" id="editIndex">
+
+            <label>Nombre:</label>
+            <input type="text" id="nombre" required>
+
+
+            <label>Precio:</label>
+            <input type="number" id="precio" required>
+
+            <label>Imagen:</label>
+                <div class="imagen-contenedor">
+                    <input type="file" id="imagen" accept="image/*">
+                    <img id="preview" class="preview" src="" alt="Vista previa de la imagen">
+                </div>
+
+            <label>Categoría:</label>
+            <select id="categoria" required>
+                <option value="">Seleccione...</option>
+                <option>Hamburguesas</option>
+                <option>Bebidas</option>
+                <option>Perros Calientes</option>
+                <option>Salchipapa</option>
+            </select>
+
+
+            <button class="btn-guardar "type="submit">Guardar</button>
+        </form>
+    </div>
+
+    <!-- BUSCADOR -->
+    <input type="text" id="buscar" placeholder="Buscar productos...">
+
+    <!-- LISTA -->
+    <div class="lista-productos" id="listaProductos"></div>
+
+    <section class="Menu-section">
+        <h2>Hamburguesas</h2>
+        <div class="productos-grid">
+            <div class="product-card">
+                <img src="img\Hambuerguesa sencilla.png" alt="Hamburguesa sencilla" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Hamburguesa Sencilla <br></div>
+                    <div class="product-price">$6.000</div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete">Eliminar</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="img\Hamburguesa pollo.png" alt="Hamburguesa pollo" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Hamburguesa de Pollo <br> </div>
+                    <div class="product-price">$6.000</div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete">Eliminar</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="img\Hamburguesa doble carne.png" alt="Hamburguesa doble carne" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Hamburguesa Doble Carne<br> </div>
+                    <div class="product-price">$9.000</div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete">Eliminar</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="img\Hamburguesa Mixta.png" alt="Hamburguesa mixta" class="product-image">
+                <div class="product-info">
+                    <div class="product-name"> Hamburguesa Mixta<br> </div>
+                    <div class="product-price">$9.000</div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete">Eliminar</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="img\Hamburguesa Mexicana.png" alt="Hamburguesa Mexicana" class="product-image">
+                <div class="product-info">
+                    <div class="product-name"> Hamburguesa Mexicana<br> </div>
+                    <div class="product-price">$9.000</div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete">Eliminar</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="img\Hamburguesa Criolla.png" alt="Hamburguesa Criolla" class="product-image">
+                <div class="product-info">
+                    <div class="product-name"> Hamburguesa Criolla<br> </div>
+                    <div class="product-price">$9.000</div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete">Eliminar</button>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="color: var(--color-secundario);">Perros Calientes</h2>
+        <div class="productos-grid">
+             <div class="product-card">
+                <img src="img\Perro Senciilo.png" alt="Perro sencillo" class="product-image">
+                <div class="product-info">
+                    <div class="product-name"> Perro Caliente Sencillo <br></div>
+                    <div class="product-price">$4.500</div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete">Eliminar</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="img\Perro Mexicano.png" alt="Perro Mexicano" class="product-image">
+                <div class="product-info">
+                    <div class="product-name"> Perro Caliente Mexicano <br></div>
+                    <div class="product-price">$6.000</div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete">Eliminar</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="img\Perro Ranchero.png" alt="Perro Ranchero" class="product-image">
+                <div class="product-info">
+                    <div class="product-name"> Perro Caliente Ranchero <br></div>
+                    <div class="product-price">$6.000</div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete">Eliminar</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="img\Choriperro.png" alt="Choriperro" class="product-image">
+                <div class="product-info">
+                    <div class="product-name"> Choriperro <br></div>
+                    <div class="product-price">$6.000</div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete">Eliminar</button>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="color: var(--color-secundario);">Harinas</h2>
+        <div class="productos-grid">
+                <div class="product-card">
+                    <img src="img\Empanadas de Carne.png" alt="Empanada de Carne" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Empanada de Carne <br></div>
+                        <div class="product-price">$2.500</div>
+                    </div>
+                    <div class="product-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete">Eliminar</button>
+                </div>
+                </div>
+    
+                <div class="product-card">
+                    <img src="img\Empanada de pollo.png" alt="Empanada de Pollo" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Empanada de Pollo <br></div>
+                        <div class="product-price">$2.500</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\Empanada Mixta.png" alt="Empanada Mixta" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Empanada Mixta <br></div>
+                        <div class="product-price">$2.500</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\Pastel de pollo mixto.png" alt="Pastel de pollo Mixto" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Pastel de Pollo Mixto <br></div>
+                        <div class="product-price">$2.500</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\Papa rellena.png" alt="Papa Rellena" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Papa Rellena <br></div>
+                        <div class="product-price">$2.500</div>
+                     </div>
+                     <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\Arepa.png" alt="Arepa" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Arepa de Queso <br></div>
+                        <div class="product-price">$2.500</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\Arepa Q-B.png" alt="Arepa Queso-Bocadillo" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Arepa de Queso y Bocadillo <br></div>
+                        <div class="product-price">$2.500</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+        </div>
+
+        <h2 style="color: var(--color-secundario);">Salchipapa</h2>
+        <div class="productos-grid">
+                <div class="product-card">
+                    <img src="img\Salchipapa sencilla.png" alt="Salchipapa Sencilla" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Salchipapa Sencilla <br></div>
+                        <div class="product-price">$6.000</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+    
+                <div class="product-card">
+                    <img src="img/Salchipapa Mediana.png" alt="Salchipapa Mediana" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Salchipapa Mediana <br></div>
+                        <div class="product-price">$10.000</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\Salchipapa semi-grande.png" alt="Salchipapa Semi-grande" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Salchipapa Semi-grande <br></div>
+                        <div class="product-price">$15.000</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\Salchipapa grande.png" alt="Salchipapa Grande" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Salchipapa Grande <br></div>
+                        <div class="product-price">$20.000</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+        </div>
+
+        <h2 style="color: var(--color-secundario);">Bebidas</h2>
+        <div class="productos-grid">
+                <div class="product-card">
+                    <img src="img\Coca cola 400ml.png" alt="Coca-Cola 400ml" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Coca-Cola 400ml <br></div>
+                        <div class="product-price">$2.000</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+    
+                <div class="product-card">
+                    <img src="https://www.buyfreshonline.co.uk/wp-content/uploads/2024/09/Coca-Cola-1.5L.webp" alt="Gaseosa 1.5L" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Coca-Cola 1.5L <br></div>
+                        <div class="product-price">$6.500</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\Coca cola 1.75l.png" alt="Coca-Cola 1.75l" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Coca-Cola 1.75l <br></div>
+                        <div class="product-price">$7.500</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\Quatro 1.75l.png" alt="Quatro 1.75l" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Quatro 1.75l <br></div>
+                        <div class="product-price">$7.500</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\Quatro 400ml.png" alt="Quatro 400ml" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Quatro 400ml <br></div>
+                        <div class="product-price">$2.000</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\sprite 1.75l.png" alt="Sprite 1.75l" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Sprite 1.75l <br></div>
+                        <div class="product-price">$7.500</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\sprite 400ml.png" alt="Sprite 400ml" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Sprite 400ml <br></div>
+                        <div class="product-price">$2.000</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\agua 400ml.png" alt="Agua Cristal 400ml" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Agua Cristal 400ml <br></div>
+                        <div class="product-price">$1.000</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\agua 1l.png" alt="Agua Cristal 1l" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Agua Cristal 1l <br></div>
+                        <div class="product-price">$2.000</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\Jugos Hit.png" alt="Jugos Hit 500ml" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Jugos Hit 500ml <br></div>
+                        <div class="product-price">$2.000 x Unidad</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="img\Cajitas de jugo hit.png" alt="Jugos Hit 500ml" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name"> Cajitas de Jugos Hit <br></div>
+                        <div class="product-price">$1.500 x Unidad</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-edit">Editar</button>
+                        <button class="btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+    <div id="widget-accesibilidad">
+    <button id="boton-accesibilidad" title="Opciones de Accesibilidad"></button>
+    <div id="menu-accesibilidad">
+        <h4>Panel de Accesibilidad</h4>
+        
+        <div class="opcion-acc">
+            <label>Tamaño de letra: <span id="val-size">100%</span></label>
+            <input type="range" id="slider-size" min="80" max="150" value="100">
+        </div>
+
+        <div class="opcion-acc">
+            <label>Tipo de fuente:</label>
+            <select id="select-font">
+                <option value="Arial, sans-serif">Predeterminada</option>
+                <option value="'Courier New', monospace">Monoespaciado</option>
+                <option value="'Georgia', serif">Elegante (Serif)</option>
+                <option value="'OpenDyslexic', sans-serif">Lectura Fácil</option>
+            </select>
+        </div>
+
+        <div class="opcion-acc">
+            <button id="btn-contraste" onclick="toggleContrast()">Activar Modo Oscuro</button>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="accesibilidad.css">
+<script src="accesibilidad.js"></script>
+
+<script>
+
+// Modal dinámico: inyecta estilos y elementos una vez
+let productos = JSON.parse(localStorage.getItem("productos")) || []; // Cargar productos desde localStorage
+
+function _createModal() { // Crear modal dinámico
+    if (document.getElementById('cs-modal-overlay')) return; // Evitar que se cree más de una vez
+    const style = document.createElement('style'); // Crear estilo CSS dinámico
+    style.textContent = `
+        #cs-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;z-index:9999}
+        #cs-modal{background:#fff;color:#111;padding:18px;border-radius:10px;max-width:420px;width:90%;box-shadow:0 8px 30px rgba(0,0,0,0.3);font-family:Arial}
+        #cs-modal p{margin:0 0 14px;font-weight:600}
+        #cs-modal .cs-modal-buttons{display:flex;gap:10px;justify-content:flex-end}
+        #cs-modal button{padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+        #cs-modal .cs-accept{background:#F18921;color:#fff}
+        #cs-modal .cs-cancel{background:#ddd;color:#222} 
+    `;
+    document.head.appendChild(style); // Agregar estilo CSS dinámico al documento
+
+    const overlay = document.createElement('div'); // Crear elemento de modal dinámico
+    overlay.id = 'cs-modal-overlay'; // Crear elemento de modal dinámico
+    overlay.style.display = 'none'; // Ocultar modal dinámico
+    overlay.innerHTML = `
+        <div id="cs-modal">
+            <p id="cs-modal-message"></p>
+            <div class="cs-modal-buttons">
+                <button id="cs-modal-cancel" class="cs-cancel">Cancelar</button>
+                <button id="cs-modal-accept" class="cs-accept">Aceptar</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay); // Agregar modal dinámico al documento
+
+    overlay.addEventListener('click', (ev) => { // Ocultar modal dinámico al hacer clic fuera
+        if (ev.target === overlay) overlay.style.display = 'none'; // Ocultar modal dinámico al hacer clic fuera
+    });
+}
+
+function showChoice(message, acceptText = 'Aceptar', cancelText = 'Cancelar') { // Mostrar modal dinámico
+    _createModal(); // Crear modal dinámico si no existe
+    return new Promise(resolve => {
+        const overlay = document.getElementById('cs-modal-overlay'); // Obtener elemento de modal dinámico
+        const msg = document.getElementById('cs-modal-message'); // Obtener elemento de modal dinámico
+        const btnAccept = document.getElementById('cs-modal-accept'); // Obtener elemento de modal dinámico
+        const btnCancel = document.getElementById('cs-modal-cancel'); // Obtener elemento de modal dinámico
+
+        msg.textContent = message; // Mostrar mensaje en modal dinámico
+        btnAccept.textContent = acceptText; // Mostrar botón de aceptar en modal dinámico
+        btnCancel.textContent = cancelText; // Mostrar botón de cancelar en modal dinámico
+
+        function cleanup(result) { // Limpiar modal dinámico
+            overlay.style.display = 'none'; // Ocultar modal dinámico
+            btnAccept.removeEventListener('click', onAccept);   // Eliminar evento de botón de aceptar
+            btnCancel.removeEventListener('click', onCancel);   // Eliminar evento de botón de cancelar
+            resolve(result); // Devolver resultado  
+        }
+
+        function onAccept() { cleanup(true); } // Evento de aceptar
+        function onCancel() { cleanup(false); } // Evento de cancelar
+
+        btnAccept.addEventListener('click', onAccept); // Agregar evento de botón de aceptar
+        btnCancel.addEventListener('click', onCancel); // Agregar evento de botón de cancelar
+
+        overlay.style.display = 'flex'; // Mostrar modal dinámico
+    });
+}
+
+// Helpers de normalización
+function _normText(s){ // Normalizar texto para comparación
+    return (s||'').replace(/\s+/g,' ').trim().toLowerCase(); // Normalizar texto para comparación
+}
+function _normPriceDigits(s){ // Normalizar precio para comparación
+    return (s||'').toString().replace(/[^0-9]/g,''); // Normalizar precio para comparación
+}
+function _imgFileName(src){ // Extraer nombre de archivo de imagen
+    if(!src) return ''; // Si no hay imagen, devolver vacío
+    try{ // Intentar extraer nombre de archivo de imagen
+        const u = new URL(src, location.href); // Crear objeto URL
+        return (u.pathname.split('/').pop()||'').toLowerCase(); // Extraer nombre de archivo de imagen
+    }catch(e){ // Si no se puede extraer nombre de archivo de imagen, devolver vacío
+        return (src.split('/').pop()||'').toLowerCase(); // Extraer nombre de archivo de imagen
+    }
+}
+
+// Referencias al DOM
+const form = document.getElementById("formProducto"); // Formulario
+const lista = document.querySelector(".productos-grid"); // Contenedor
+const buscar = document.getElementById("buscar"); // Buscador
+const preview = document.getElementById("preview"); // Vista previa de imagen
+
+// Guardar productos en localStorage
+function guardarLocal() { // Guardar productos en localStorage
+    localStorage.setItem("productos", JSON.stringify(productos)); // Guardar productos en localStorage
+}
+
+// 4. Mostrar productos en el DOM (solo dinámicos)
+function mostrarProductos(filtro = "") { // Mostrar productos en el DOM (solo dinámicos)
+    // Eliminar solo las tarjetas dinámicas existentes
+    lista.querySelectorAll(".product-card.dynamic").forEach(card => card.remove()); // Eliminar solo las tarjetas dinámicas existentes
+
+    productos // Filtrar productos
+        .filter(p => // Filtrar productos
+            p.nombre.toLowerCase().includes(filtro.toLowerCase()) ||    // Filtrar productos
+            p.categoria.toLowerCase().includes(filtro.toLowerCase()) // Filtrar productos
+        )
+        .forEach((p, index) => { // Mostrar productos
+            const card = document.createElement("div"); // Crear tarjeta dinámica
+            card.className = "product-card dynamic"; // Agregar clase dinámica
+
+            card.innerHTML = `
+                <img class="product-image" src="${p.imagen}" alt="${p.nombre}"> 
+                <div class="product-info">
+                    <div class="product-name">${p.nombre}</div>
+                    <div class="product-price">$${p.precio}</div>
+                </div>  
+                <div class="product-actions">
+                    <button class="btn btn-edit" data-index="${index}" onclick="editarProducto(${index})">Editar</button>
+                    <button class="btn btn-delete" data-index="${index}" onclick="eliminarProducto(${index})">Eliminar</button>
+                </div>
+            `;
+
+            lista.appendChild(card); // Agregar tarjeta dinámica al DOM
+        });
+}
+
+// 5. Agregar o editar productos desde el formulario
+form.addEventListener("submit", async e => { // Agregar o editar productos desde el formulario
+    e.preventDefault(); // Evitar que se envíe el formulario antes de validar
+
+    const nombre = document.getElementById("nombre").value.trim(); // Obtener valor del campo nombre
+    const precio = document.getElementById("precio").value.trim(); // Obtener valor del campo precio
+    const categoria = document.getElementById("categoria").value.trim(); // Obtener valor del campo categoria
+    const editIndex = document.getElementById("editIndex").value; // Obtener valor del campo editIndex
+
+    const imagen = preview.src; // Obtener URL de la imagen
+
+    if (!nombre || !precio || !categoria || !imagen) { // Validar que todos los campos estén completos
+        alert("Por favor completa todos los campos y selecciona una imagen."); // Mostrar mensaje de error
+        return; // Devolver
+    }
+
+    // Normalizar nombre para comparación
+    const nombreKey = nombre.toLowerCase(); // Normalizar nombre para comparación
+
+    // Si estamos editando un producto existente
+    if (editIndex !== "") { // Si estamos editando un producto existente
+        const idx = parseInt(editIndex, 10); // Obtener índice del producto editado 
+        console.log('DEBUG submit: editIndex=', editIndex, 'nombre=', nombre, 'precio=', precio, 'categoria=', categoria);
+        // Si el nombre editado coincide con otro producto distinto, preguntar qué hacer
+        const conflictoIndex = productos.findIndex((p, i) => i !== idx && _normText(p.nombre) === _normText(nombre)); // Comprobar si existe un duplicado EXACTO en dinámicos
+        // También comprobar si coincide con una tarjeta estática en la página
+        const staticCards = Array.from(document.querySelectorAll('.product-card:not(.dynamic)')); // Obtener tarjetas estáticas
+        const conflictoStaticCard = staticCards.find(card => _normText(card.querySelector('.product-name')?.textContent || '') === _normText(nombre));  // Comprobar si existe un duplicado EXACTO en dinámicos
+        console.log('DEBUG conflictoIndex=', conflictoIndex, 'conflictoStaticCard=', !!conflictoStaticCard);   // Mostrar mensaje de error
+        // Comprobar si existe un duplicado EXACTO en dinámicos
+        const exactDynamicIndex = productos.findIndex((p, i) => i !== idx && _normText(p.nombre) === _normText(nombre) && _normPriceDigits(p.precio) === _normPriceDigits(precio) && _normText(p.categoria) === _normText(categoria) && (p.imagen === imagen || _imgFileName(p.imagen) === _imgFileName(imagen)));
+        // Comprobar duplicado EXACTO entre tarjetas estáticas
+        const staticExactCard = staticCards.find(card => {
+            const sNombre = _normText(card.querySelector('.product-name')?.textContent || ''); // Normalizar nombre de tarjeta estática
+            const sPrecio = _normPriceDigits(card.querySelector('.product-price')?.textContent || ''); // Normalizar precio de tarjeta estática
+            const sImagen = _imgFileName(card.querySelector('.product-image')?.src || ''); // Normalizar URL de imagen de tarjeta estática
+            return sNombre === _normText(nombre) && sPrecio === _normPriceDigits(precio) && (sImagen === _imgFileName(imagen) || !sImagen) && sNombre !== ''; // Comprobar duplicado EXACTO entre tarjetas estáticas
+        });
+        if (exactDynamicIndex !== -1 || staticExactCard) { // Si existe un duplicado EXACTO en dinámicos o en tarjetas estáticas
+            alert('Este producto ya existe exactamente. No se añadirá un duplicado.'); // Mostrar mensaje de error
+        }
+        if (conflictoIndex !== -1 || conflictoStaticCard) { // Si existe un duplicado EXACTO entre tarjetas estáticas
+            const existente = productos[conflictoIndex]; // Obtener producto existente
+            const esIgual = (conflictoIndex !== -1) // Comprobar si el producto existente es igual al nuevo producto
+                ? (existente.nombre === nombre && existente.precio === precio && existente.categoria === categoria && existente.imagen === imagen) // Comprobar si el producto existente es igual al nuevo producto
+                : false; // Comprobar si el producto existente es igual al nuevo producto
+            const mensaje = esIgual // Mostrar mensaje de confirmación
+                ? 'El producto ya existe exactamente. Aceptar = conservar ambos; Cancelar = reemplazar el existente con los nuevos datos.' // Mostrar mensaje de confirmación
+                : 'Ya existe un producto con ese nombre. Aceptar = conservar ambos; Cancelar = actualizar el existente con los nuevos datos (se eliminará el anterior).'; // Mostrar mensaje de confirmación
+            const conservar = await showChoice(mensaje, 'Conservar', 'Reemplazar'); // Mostrar modal dinámico
+            console.log('DEBUG usuario eligio conservar=', conservar); // Mostrar elección del usuario
+            if (conservar) {
+                // Mantener ambos: simplemente update el producto en editIndex
+                productos[idx] = { nombre, precio, imagen, categoria }; // Actualizar producto en editIndex
+            } else { // Si el usuario eligió Reemplazar
+                // Reemplazar el existente (eliminar conflicto estático o dinámico y actualizar)
+                if (conflictoIndex !== -1) { // Si el conflicto es con un producto dinámico
+                    productos.splice(conflictoIndex, 1); // Eliminar producto dinámico
+                    const newIdx = productos.length > idx ? idx : productos.length; // Obtener índice del producto editado
+                    productos[newIdx] = { nombre, precio, imagen, categoria }; // Actualizar producto en editIndex
+                } else if (conflictoStaticCard) { // Si el conflicto es con una tarjeta estática
+                    // Si el conflicto es con una tarjeta estática, removerla del DOM y actualizar el producto editado
+                    conflictoStaticCard.remove(); // Eliminar tarjeta estática del DOM
+                    productos[idx] = { nombre, precio, imagen, categoria }; // Actualizar producto en editIndex
+                }
+            }
+        } else {
+            // No hay conflicto de nombre con otros: simplemente actualizar
+            productos[idx] = { nombre, precio, imagen, categoria }; // Actualizar producto en editIndex
+        } 
+    } else { // Si estamos agregando un nuevo producto
+        console.log('DEBUG submit: add new nombre=', nombre, 'nombreKey=', nombreKey); // Mostrar mensaje de error
+        // Añadir nuevo producto: comprobar si existe por nombre
+        const existeIndex = productos.findIndex(p => _normText(p.nombre) === _normText(nombre)); // Comprobar si existe por nombre
+        const staticCards = Array.from(document.querySelectorAll('.product-card:not(.dynamic)')); // Obtener tarjetas estáticas
+        const staticMatchCard = staticCards.find(card => _normText(card.querySelector('.product-name')?.textContent || '') === _normText(nombre)); // Comprobar si existe por nombre
+        console.log('DEBUG existeIndex=', existeIndex, 'staticMatchCard=', !!staticMatchCard, 'productos.length=', productos.length); // Mostrar mensaje de confirmacion
+        if (existeIndex !== -1 || staticMatchCard) { // Si existe por nombre
+            const existente = existeIndex !== -1 ? productos[existeIndex] : null; // Obtener producto existente
+            const esIgual = existente ? (existente.nombre === nombre && existente.precio === precio && existente.categoria === categoria && existente.imagen === imagen) : false; // Comprobar si el producto existente es igual al nuevo producto
+            const mensaje = esIgual // Mostrar mensaje de confirmación
+                ? 'Este producto ya existe exactamente. Aceptar = conservar ambos; Cancelar = eliminar el existente y añadir este.' // Mostrar mensaje de confirmación
+                : 'Ya existe un producto con este nombre. Aceptar = conservar ambos; Cancelar = reemplazar el existente con este nuevo.'; // Mostrar mensaje de confirmación
+            const conservar = await showChoice(mensaje, 'Conservar', 'Reemplazar'); // Mostrar modal dinámico
+            if (conservar) {
+                // Mantener ambos: agregar nuevo
+                productos.push({ nombre, precio, imagen, categoria }); // Agregar producto dinámico
+            } else {
+                // Reemplazar/eliminar existente dinámico o estático
+                if (existeIndex !== -1) { // Si el producto existente es dinámico
+                    productos.splice(existeIndex, 1, { nombre, precio, imagen, categoria }); // Eliminar producto dinámico
+                } else if (staticMatchCard) { // Si el producto existente es estático
+                    // Remover tarjeta estática del DOM y añadir nuevo
+                    staticMatchCard.remove(); // Eliminar tarjeta estática del DOM
+                    productos.push({ nombre, precio, imagen, categoria }); // Agregar producto dinámico
+                }
+            }
+        } else {
+            // No existe: agregar normalmente
+            productos.push({ nombre, precio, imagen, categoria }); // Agregar producto dinámico
+        }
+    }
+
+    guardarLocal(); // Guardar productos en localStorage
+    mostrarProductos(); // Mostrar productos en el DOM (solo dinámicos)
+    form.reset(); // Limpiar formulario
+    preview.src = ""; // Limpiar vista previa de imagen
+    preview.classList.remove("show"); // Ocultar vista previa de imagen
+    document.getElementById("editIndex").value = ""; // Limpiar índice de producto editado
+});
+
+// 6. Editar producto dinámico
+function editarProducto(i) { // Editar producto dinámico
+    const p = productos[i]; // Obtener producto dinámico
+
+    document.getElementById("nombre").value = p.nombre; // Actualizar valor del campo nombre
+    document.getElementById("precio").value = p.precio; // Actualizar valor del campo precio
+    document.getElementById("categoria").value = p.categoria; // Actualizar valor del campo categoria
+    document.getElementById("editIndex").value = i; // Actualizar valor del campo editIndex
+
+    preview.src = p.imagen; // Actualizar URL de la imagen
+    preview.classList.add("show"); // Mostrar vista previa de imagen
+
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Desplazarse a la parte superior de la página
+}
+
+// 7. Eliminar producto dinámico
+async function eliminarProducto(i) { // Eliminar producto dinámico
+    const ok = await showChoice('¿Seguro que deseas eliminar este producto?', 'Sí, eliminar', 'Cancelar'); // Mostrar modal dinámico
+    if (ok) { // Si el usuario eligió Sí, eliminar producto dinámico
+        productos.splice(i, 1); // Eliminar producto dinámico
+        guardarLocal(); // Guardar productos en localStorage
+        mostrarProductos(); // Mostrar productos en el DOM (solo dinámicos)
+    }
+}
+
+// 8. Buscar productos
+buscar.addEventListener("input", () => { // Buscar productos
+    const filtro = buscar.value.toLowerCase(); // Obtener valor del campo buscar
+
+    //  Filtrar tarjetas agregadas 
+    mostrarProductos(filtro); // Mostrar productos en el DOM (solo dinámicos)
+
+    // Filtrar tarjetas ya hechas
+    document.querySelectorAll(".product-card:not(.dynamic)").forEach(card => { // Obtener tarjetas estáticas
+        const nombre = card.querySelector(".product-name")?.textContent.toLowerCase() || ""; // Normalizar nombre de tarjeta estática
+        const categoria = card.querySelector(".product-category")?.textContent.toLowerCase() || ""; // Normalizar categoria de tarjeta estática
+        
+        if (nombre.includes(filtro) || categoria.includes(filtro)) { // Comprobar si el nombre o la categoria incluyen el filtro
+            card.style.display = "flex"; // mostrar 
+        } else { // Si no incluye el filtro, ocultar
+            card.style.display = "none"; // ocultar
+        }
+    });
+});
+
+
+// 9. Mostrar productos al cargar la página
+mostrarProductos(); // Mostrar productos en el DOM (solo dinámicos) al cargar la página
+
+// 10. Manejo de imagen: vista previa al seleccionar un archivo
+document.getElementById("imagen").addEventListener("change", function () { // Seleccionar imagen
+    const file = this.files[0]; // Obtener archivo seleccionado
+    if (file) { // Si hay archivo seleccionado
+        const reader = new FileReader(); // Crear objeto FileReader
+        reader.onload = function (e) { // Cargar imagen
+            preview.src = e.target.result; // Actualizar URL de la imagen con la imagen seleccionada
+            preview.classList.add("show"); // Mostrar vista previa de imagen
+        };
+        reader.readAsDataURL(file); // Leer imagen como URL de datos
+    } else {
+        preview.src = ""; // Limpiar vista previa de imagen
+        preview.classList.remove("show"); // Ocultar vista previa de imagen
+    }
+});
+
+// 11. Manejo de tarjetas viejas (HTML) para eliminar y editar
+document.addEventListener("click", async function(e) { // Eliminar y editar tarjetas viejas
+    const card = e.target.closest(".product-card"); // Obtener tarjeta vieja
+
+    // Eliminar tarjetas viejas
+    if (e.target.classList.contains("btn-delete") && !e.target.hasAttribute("data-index")) { // Si el usuario ha seleccionado el botón de eliminar
+        if (card) { // Si la tarjeta vieja es dinámica
+            const ok = await showChoice('¿Seguro que deseas eliminar este producto?', 'Sí, eliminar', 'Cancelar'); //   Mostrar modal dinámico
+            if (ok) card.remove(); // Eliminar tarjeta dinámica
+        }
+    }
+
+    // Editar tarjetas viejas
+    if (e.target.classList.contains("btn-edit") && !e.target.hasAttribute("data-index")) { // Si el usuario ha seleccionado el botón de editar
+        if (!card) return; // Si la tarjeta vieja no es dinámica, devolver
+
+        const nombre = card.querySelector(".product-name")?.textContent || ""; // Normalizar nombre de tarjeta vieja
+        const precioText = card.querySelector(".product-price")?.textContent || ""; // Normalizar precio de tarjeta vieja
+        const precio = precioText.replace(/\D/g, ''); // Normalizar precio de tarjeta vieja
+        const imagen = card.querySelector(".product-image")?.src || ""; // Normalizar URL de imagen de tarjeta vieja
+        const categoria = ""; // opcional si no la tienes visible
+
+        document.getElementById("nombre").value = nombre; // Actualizar valor del campo nombre
+        document.getElementById("precio").value = precio; // Actualizar valor del campo precio
+        document.getElementById("categoria").value = categoria; // Actualizar valor del campo categoria
+        document.getElementById("editIndex").value = ""; // se agregará como nuevo producto dinámico
+
+        preview.src = imagen; // Actualizar URL de la imagen
+        preview.classList.add("show"); // Mostrar vista previa de imagen 
+        window.scrollTo({ top: 0, behavior: "smooth" }); // Desplazarse a la parte superior de la página
+    }
+});
+
+    </script>
+</body>
+</html>

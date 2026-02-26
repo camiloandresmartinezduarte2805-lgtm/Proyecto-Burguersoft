@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Copia de Seguridad</title>
+    <link rel="stylesheet" href="backups.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>💾 Sistema de Copia de Seguridad</h1>
+
+        <textarea id="dataInput" placeholder="Escribe aquí los datos a guardar..."></textarea>
+
+        <div class="buttons">
+            <button onclick="guardarBackup()">Guardar Backup</button>
+            <button onclick="exportarBackup()">Exportar Backup</button>
+            <button onclick="restaurarBackup()">Restaurar Backup</button>
+            <button onclick="eliminarBackup()">Eliminar Backup</button>
+        </div>
+
+        <input type="file" id="fileInput" accept=".json" hidden>
+    </div>
+
+    <script src="backups.js"></script>
+</body>
+</html>

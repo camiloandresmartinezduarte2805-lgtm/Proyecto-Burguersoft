@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="estilos-registro.css">
+    <link rel="icon" href="img/icono.png" type="image/x-icon">
+    <script src="Registro.js" defer></script>
+</head>
+<body>
+
+    <img src="img/icono.png" class="logon">
+
+    <form id="registroForm">
+        <div class="contenedor">
+            <div class="encabezado">
+                <h2>CREAR UNA CUENTA</h2>
+                <p>Crea tu cuenta en el Sistema.</p>
+            </div>
+
+            <div class="descripcion">
+                <p>Llena cada uno de los siguientes campos para tu Registro</p>
+            </div>
+
+            <div class="fila">
+                <div class="campo">
+                    <label>Nombre</label>
+                    <input type="text" id="nombre" placeholder="Digite su nombre" required>
+                </div>
+                <div class="campo">
+                    <label>Apellido</label>
+                    <input type="text" id="apellido" placeholder="Digite su apellido" required>
+                </div>
+            </div>
+
+            <div class="fila">
+                <div class="campo">
+                    <label>Fecha de Nacimiento</label>
+                    <input type="date" id="fecha" required>
+                </div>
+                <div class="campo">
+                    <label>Correo</label>
+                    <input type="text" id="correo" placeholder="Digite su correo (@gmail.com)" required>
+                </div>
+            </div>
+
+            <div class="fila">
+                <div class="campo">
+                    <label>Contraseña</label>
+                    <input type="password" id="password" placeholder="Digite una contraseña segura" required>
+                </div>
+
+                <div class="campo">
+                    <label>Rol</label>
+                    <select id="rol" required>
+                        <option value="">Seleccione un rol</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Cajero">Cajero</option>
+                        <option value="Mesero">Mesero</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="fila">
+                <div class="campo">
+                    <label>Confirmar Contraseña</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirme su contraseña segura" required>
+                </div>
+                <div class="campo">
+                    <label>Género</label>
+                    <select id="genero" required>
+                        <option value="">Seleccione su genero</option>
+                        <option value="Mujer">Mujer</option>
+                        <option value="Hombre">Hombre</option>
+                        <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="boton">Registrarse</button>
+        </div>
+    </form>
+
+    <div class="enlace-externo">
+        ¿Ya tienes una cuenta?
+        <a href="login.html">Inicio sesión</a>
+    </div>
+    <button class="boton-regresar" onclick="history.back()">Regresar</button>
+
+<div id="widget-accesibilidad">
+    <button id="boton-accesibilidad" title="Opciones de Accesibilidad"></button>
+    <div id="menu-accesibilidad">
+        <h4>Panel de Accesibilidad</h4>
+        
+        <div class="opcion-acc">
+            <label>Tamaño de letra: <span id="val-size">100%</span></label>
+            <input type="range" id="slider-size" min="80" max="150" value="100">
+        </div>
+
+        <div class="opcion-acc">
+            <label>Tipo de fuente:</label>
+            <select id="select-font">
+                <option value="Arial, sans-serif">Predeterminada</option>
+                <option value="'Courier New', monospace">Monoespaciado</option>
+                <option value="'Georgia', serif">Elegante (Serif)</option>
+                <option value="'OpenDyslexic', sans-serif">Lectura Fácil</option>
+            </select>
+        </div>
+
+        <div class="opcion-acc">
+            <button id="btn-contraste" onclick="toggleContrast()">Activar Modo Oscuro</button>
+        </div>
+    </div>
+</div>
+
+    <link rel="stylesheet" href="Accesibilidad.css">
+    <script src="Accesibilidad.js"></script>
+    
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 BURGUERSOFT - EL ORIENTE. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

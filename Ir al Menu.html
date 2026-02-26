@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BURGUERSOFT - Menú</title>
+    <link rel="icon" href="img\icono.png" type="image/x-icon">
+    <link rel="stylesheet" href="Estilos-paginas-clientes.css">
+    <link rel="stylesheet" href="estilos-Menu.css">
+    <link rel="stylesheet" href="factura-estilos.css">
+    <script src="Hero-Carrusel.js" defer></script>
+    <script src="Menu.js"></script>
+    <style>
+        #pedido-modal{
+            position:fixed;top:0;left:0;right:0;bottom:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);z-index:99999
+        }
+        #pedido-modal .modal-contenido{background:#fff;padding:18px;border-radius:8px;max-width:380px;width:92%;text-align:center;box-shadow:0 6px 30px rgba(0,0,0,0.3)}
+        #pedido-modal .opciones{display:flex;gap:12px;justify-content:center;margin-top:12px}
+        #pedido-modal .opciones button{flex:1;padding:10px 12px;border:0;border-radius:6px;cursor:pointer}
+        #pedido-modal .whatsapp{background:#25D366;color:#fff}
+        #pedido-modal .local{background:#444;color:#fff}
+        #pedido-modal .cerrar{background:transparent;color:#333;border:1px solid #ccc;margin-top:10px;padding:8px 12px;border-radius:6px}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <a href="Burguersoft.html" class="logo"></a>
+            <hr>
+            <a href="El Oriente.html" class="nom-local">El Oriente</a>
+        </div>
+
+        <nav class="header-center">
+            <a href="Burguersoft.html">Inicio</a>
+            <a href="El Oriente.html">El Oriente</a>
+            <a href="Ir al Menu.html">Ir al Menú</a>
+            <a href="Contactanos.html">Contacto</a>
+        </nav>
+
+        <a class="header-right" href="login.html">
+            <button class="btn-sesion">
+                <img src="img\Icono persona.png" alt="User Icon"> 
+            </button>
+        </a>
+    </header>
+
+    <section class="hero">
+            <div class="carousel-container">
+            <div class="carousel-slide active" style="background-image: url('https://www.recetasnestle.com.ec/sites/default/files/srh_recipes/4e4293857c03d819e4ae51de1e86d66a.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('https://ranchera.com.co/wp-content/uploads/2022/11/perro-colombiano-1.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('https://chefstv.net/wp-content/uploads/2024/03/0045-empanadas-saltenas-fritas-wide-web.webp');"></div>
+            <div class="carousel-slide" style="background-image: url('https://www.elespectador.com/resizer/v2/4YMEEW2QBVGALOUC7LSPUFNKMU.jpg?auth=1913090d3e141e8a3ccce35509259201363e9dddf853024e2f30ac71ce6383a9&width=1110&height=739&smart=true&quality=60');"></div>
+        </div>
+    </section>
+
+    <!-- CARRITO -->
+    <div id="carrito">
+        <h3>Carrito</h3>
+        <ul id="lista-carrito"></ul>
+        <p id="total">Total: $0</p>
+
+        <label for="pago">Método de pago:</label>
+        <select id="pago">
+            <option value="Efectivo">Efectivo</option>
+            <option value="Nequi">Nequi</option>
+            <option value="Daviplata">Daviplata</option>
+            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+        </select>
+
+        <button onclick="enviarPedido()">Enviar Pedido</button>
+        <button style="background:#444" onclick="vaciarCarrito()">Vaciar Carrito</button>
+        <button onclick="mostrarFactura()">Ver factura</button>
+</script>
+        
+    </div>
+
+    <!-- Modal: elegir WhatsApp o En el local -->
+    <div id="pedido-modal" role="dialog" aria-modal="true">
+        <div class="modal-contenido">
+            <h3>¿Cómo deseas realizar el pedido?</h3>
+            <div class="opciones">
+                <button class="whatsapp" onclick="elegirWhatsApp()">Por WhatsApp</button>
+                <button class="local" onclick="elegirLocal()">En el local</button>
+            </div>
+            <button class="cerrar" onclick="cerrarModal()">Cancelar</button>
+        </div>
+    </div>
+    <!-- Modal cuadrado para ingresar número de mesa (ahora overlay con marca de agua) -->
+    <div id="mesa-modal" role="dialog" aria-modal="true" style="display:none; position:fixed; inset:0; align-items:center; justify-content:center; background:rgba(0,0,0,0.6); z-index:100000;">
+        <div style="background:#fff;padding:18px;border-radius:8px;max-width:320px;width:88%;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.35);margin:0 auto;position:relative;overflow:hidden;">
+            <!-- marca de agua en pantalla eliminada -->
+            <h3 style="margin:0 0 8px">Ingrese número de mesa</h3>
+            <p style="margin:0 0 12px;font-size:14px;color:#333">Escribe un número entre <strong>1</strong> y <strong>4</strong></p>
+            <input id="mesa-modal-input" type="number" min="1" max="4" style="width:80px;padding:8px;border:1px solid #ccc;border-radius:6px;text-align:center;font-size:16px">
+            <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
+                <button onclick="confirmarMesaModal()" style="background:#c96100;color:#fff;padding:8px 12px;border:0;border-radius:6px">Confirmar</button>
+                <button onclick="cerrarMesaModal()" style="background:#3f3f3f;color:#ffffff;padding:8px 12px;border:1px solid #ccc;border-radius:6px">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección 'En el local' removida: entrada y guardado de número de mesa eliminados -->
+
+    <!-- Overlay de factura -->
+    <div id="invoice-overlay" role="dialog" aria-hidden="true" style="display:none; position:fixed;inset:0;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:100000;">
+        <div id="invoice-box" style="background:#fff;padding:18px;border-radius:8px;max-width:720px;width:92%;box-shadow:0 12px 40px rgba(0,0,0,0.45);position:relative;overflow:hidden;">
+            <div id="invoice-content" style="position:relative;z-index:2">
+                <!-- El contenido de la factura se inyecta aquí -->
+            </div>
+            <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+                <button onclick="imprimirFactura()" style="background:#ff6600;color:#fff;padding:8px 12px;border:0;border-radius:6px">Imprimir</button>
+                <button onclick="closeInvoice()" style="background:#464646;color:#ffffff;padding:8px 12px;border:1px solid #ccc;border-radius:6px">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PRODUCTOS ========== -->
+    <script>
+        function enviarPedido(){
+            const lista = document.getElementById('lista-carrito');
+            if(!lista || lista.children.length === 0){
+                alert('El carrito está vacío. Agrega productos antes de enviar.');
+                return;
+            }
+            document.getElementById('pedido-modal').style.display = 'flex';
+        }
+        function cerrarModal(){
+            document.getElementById('pedido-modal').style.display = 'none';
+        }
+        function elegirWhatsApp(){
+            const items = Array.from(document.querySelectorAll('#lista-carrito li')).map(li => li.textContent.trim()).join('\n');
+            const totalEl = document.getElementById('total');
+            const total = totalEl ? totalEl.textContent.trim() : '';
+            const raw = 'Pedido:%0A' + encodeURIComponent(items) + '%0A' + encodeURIComponent(total);
+            const url = 'https://wa.me/?text=' + raw;
+            window.open(url, '_blank');
+            cerrarModal();
+        }
+        function elegirLocal(){
+            cerrarModal();
+            const mesaModal = document.getElementById('mesa-modal');
+            if(mesaModal){
+                mesaModal.style.display = 'flex';
+                mesaModal.style.alignItems = 'center';
+                mesaModal.style.justifyContent = 'center';
+                const inp = document.getElementById('mesa-modal-input');
+                if(inp){ inp.value = ''; setTimeout(()=>inp.focus(),100); }
+            }
+        }
+
+        function cerrarMesaModal(){
+            const mesaModal = document.getElementById('mesa-modal');
+            if(mesaModal) mesaModal.style.display = 'none';
+        }
+
+        function confirmarMesaModal(){
+            const inp = document.getElementById('mesa-modal-input');
+            if(!inp) return;
+            const v = parseInt(inp.value,10);
+            if(!v || v < 1 || v > 4){
+                alert('Número de mesa inválido. Ingresa un valor entre 1 y 4.');
+                return;
+            }
+                window.mesaSeleccionada = v;
+                cerrarMesaModal();
+                // actualizar la factura y mostrar el overlay; la impresión será solo al presionar el botón
+                actualizarFactura();
+                const items = window.carrito || carrito || [];
+                if(items.length === 0){
+                    alert('Mesa ' + v + ' guardada. Aún no hay productos en el carrito.');
+                    return;
+                }
+        }
+        
+        // --- Factura / overlay ---
+        function obtenerItemsCarritoDOM(){
+            return Array.from(document.querySelectorAll('#lista-carrito li')).map(li => li.textContent.trim());
+        }
+        function obtenerTotalTexto(){
+            const totalEl = document.getElementById('total');
+            return totalEl ? totalEl.textContent.replace(/^\s*/, '') : 'Total: $0';
+        }
+        function actualizarFactura(){
+            // obtener items desde la variable `carrito` si existe, si no desde el DOM
+            let rawItems = [];
+            if(typeof carrito !== 'undefined' && Array.isArray(carrito) && carrito.length>0){
+                rawItems = carrito.map(i => ({nombre: i.nombre, precio: i.precio}));
+            } else {
+                // fallback: parsear los <li> de la lista
+                rawItems = Array.from(document.querySelectorAll('#lista-carrito li')).map(li=>{
+                    const txt = li.textContent || '';
+                    // intentar separar nombre y precio por '—' o '-'
+                    const parts = txt.split('—');
+                    if(parts.length>=2){
+                        const nombre = parts[0].trim();
+                        const precioText = parts[1].replace(/[^0-9]/g,'');
+                        const precio = parseInt(precioText||0,10);
+                        return {nombre, precio};
+                    }
+                    return {nombre: txt.trim(), precio: 0};
+                });
+            }
+
+            // agrupar por nombre
+            const map = new Map();
+            let total = 0;
+            rawItems.forEach(it=>{
+                total += Number(it.precio||0);
+                const key = it.nombre || 'Item';
+                if(!map.has(key)) map.set(key, {nombre:key, cantidad:0, precioUnit: Number(it.precio||0)});
+                const entry = map.get(key);
+                entry.cantidad += 1;
+                // mantener precioUnit (si hay variaciones, se mantiene el primero)
+            });
+
+            const metodoPago = document.getElementById('pago') ? document.getElementById('pago').value : '-';
+            const mesa = window.mesaSeleccionada || '-';
+            const cont = document.getElementById('invoice-content');
+            if(!cont) return;
+
+            let html = '';
+            html += `<div class="invoice-header"><div class="brand"><strong>BURGUERSOFT</strong><br><small>Factura</small></div><div class="mesa">Mesa: <strong>${mesa}</strong></div></div>`;
+            html += '<hr class="invoice-hr">';
+
+            if(map.size === 0){
+                html += '<p>No hay productos en el carrito.</p>';
+            } else {
+                html += '<ul class="invoice-list">';
+                for(const [k,v] of map.entries()){
+                    // mostrar precio unitario junto al item; el total refleja la suma
+                    const qtyLabel = v.cantidad>1 ? ` x${v.cantidad}` : '';
+                    html += `<li class="invoice-item">${v.nombre}${qtyLabel} — $${v.precioUnit}</li>`;
+                }
+                html += '</ul>';
+            }
+
+            html += `<p class="invoice-total">Total: $${total}</p>`;
+            html += `<p style="margin-top:6px">Método de pago: <strong>${metodoPago}</strong></p>`;
+
+            cont.innerHTML = html;
+            const overlay = document.getElementById('invoice-overlay');
+            if(overlay){ overlay.style.display = 'flex'; overlay.setAttribute('aria-hidden','false'); }
+        }
+
+        function closeInvoice(){
+            const overlay = document.getElementById('invoice-overlay');
+            if(overlay){ overlay.style.display = 'none'; overlay.setAttribute('aria-hidden','true'); }
+        }
+
+        function imprimirFactura(){
+            // Asegurar que la factura esté actualizada antes de imprimir
+            actualizarFactura();
+            const content = document.getElementById('invoice-content');
+            if(!content) { alert('No se encontró la factura para imprimir.'); return; }
+                const html = `<!doctype html><html><head><meta charset="utf-8"><title>Factura</title>
+                    <link rel="stylesheet" href="factura-estilos.css">
+                    <style>@media print{ @page { margin: 12mm } body{ -webkit-print-color-adjust: exact; }}</style>
+                </head><body>
+                    <div class="print-content">${content.innerHTML}</div>
+                </body></html>`;
+            const w = window.open('', '_blank');
+            if(!w){ alert('El navegador bloqueó la apertura de la ventana de impresión.'); return; }
+            w.document.write(html);
+            w.document.close();
+            w.focus();
+            // Dar tiempo para que el nuevo documento procese antes de imprimir
+            setTimeout(()=>{
+                w.print();
+                // cerrar ventana emergente después de imprimir (puede ser bloqueado por algunos navegadores)
+                setTimeout(()=>{ try{ w.close(); }catch(e){} }, 300);
+            },250);
+        }
+    
+
+        
+        
+    </script>
+    <h2 class="titulo-seccion">NUESTROS PRODUCTOS</h2>
+    <div class="contenedor">
+        <!-- ----------- HAMBURGUESAS ----------- -->
+        <div class="card" onclick="mostrarSubmenu('hamburguesa')">
+            <img src="img/Hamburguesa.webp">
+            <h3>Hamburguesas</h3>
+            <div id="submenu-hamburguesa" class="submenu">
+
+                <ul>
+                    <li data-item="Sencilla" onmouseenter="hoverIngredientes('hamburguesa', this)" onclick="clickIngredientes('hamburguesa', this); event.stopPropagation(); agregarAlCarrito('Hamburguesa Sencilla',10000)">Sencilla — $10.000</li>
+
+                    <li data-item="Doble" onmouseenter="hoverIngredientes('hamburguesa', this)" onclick="clickIngredientes('hamburguesa', this); event.stopPropagation(); agregarAlCarrito('Hamburguesa Doble',14000)">Doble — $14.000</li>
+
+                    <li data-item="Especial" onmouseenter="hoverIngredientes('hamburguesa', this)" onclick="clickIngredientes('hamburguesa', this); event.stopPropagation(); agregarAlCarrito('Hamburguesa Especial',18000)">Especial — $18.000</li>
+
+                    <li data-item="Pollo" onmouseenter="hoverIngredientes('hamburguesa', this)" onclick="clickIngredientes('hamburguesa', this); event.stopPropagation(); agregarAlCarrito('Hamburguesa Pollo',12000)">Pollo — $12.000</li>
+                </ul>
+
+                <div class="ingredientes-box"></div>
+
+                <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('hamburguesa')">Volver</button>
+            </div>
+        </div>
+        <!-- PERROS -->
+    <div class="card" onclick="mostrarSubmenu('perros')">
+        <img src="IMG/Perro Caliente.jpg">
+        <h3>Perros Calientes</h3>
+        <div id="submenu-perros" class="submenu">
+            <ul>
+                
+                <li data-item="Sencillo" onmouseenter="hoverIngredientes('perros', this)" onclick="clickIngredientes('perros', this); event.stopPropagation(); agregarAlCarrito('Perro Sencillo',8000)">Sencillo — $8.000</li>
+                
+                <li data-item="Especial" onmouseenter="hoverIngredientes('perros', this)" onclick="clickIngredientes('perros', this); event.stopPropagation(); agregarAlCarrito('Perro Especial',12000)">Especial — $12.000</li>
+                
+                <li data-item="Americano" onmouseenter="hoverIngredientes('perros', this)" onclick="clickIngredientes('perros', this); event.stopPropagation(); agregarAlCarrito('Perro Americano',15000)">Americano — $15.000</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('perros')">Volver</button>
+        </div>
+    </div>
+     <!-- PIZZAS -->
+    <div class="card" onclick="mostrarSubmenu('pizza')">
+        <img src="IMG/Pizza.webp">
+        <h3>Pizzas</h3>
+        <div id="submenu-pizza" class="submenu">
+            <ul>
+                <li data-item="Personal" onmouseenter="hoverIngredientes('pizza', this)" onclick="clickIngredientes('pizza', this); event.stopPropagation(); agregarAlCarrito('Pizza Personal',10000)">Personal — $10.000</li>
+                <li data-item="Mediana" onmouseenter="hoverIngredientes('pizza', this)" onclick="clickIngredientes('pizza', this); event.stopPropagation(); agregarAlCarrito('Pizza Mediana',18000)">Mediana — $18.000</li>
+                <li data-item="Familiar" onmouseenter="hoverIngredientes('pizza', this)" onclick="clickIngredientes('pizza', this); event.stopPropagation(); agregarAlCarrito('Pizza Familiar',28000)">Familiar — $28.000</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('pizza')">Volver</button>
+        </div>
+    </div>
+
+    <!-- SALCHIPAPAS -->
+    <div class="card" onclick="mostrarSubmenu('salchipapa')">
+        <img src="IMG/Salchipapa.jpg">
+        <h3>Salchipapas</h3>
+        <div id="submenu-salchipapa" class="submenu">
+            <ul>
+                <li data-item="Sencilla" onmouseenter="hoverIngredientes('salchipapa', this)" onclick="clickIngredientes('salchipapa', this); event.stopPropagation(); agregarAlCarrito('Salchipapa Sencilla',10000)">Sencilla — $10.000</li>
+                <li data-item="Especial" onmouseenter="hoverIngredientes('salchipapa', this)" onclick="clickIngredientes('salchipapa', this); event.stopPropagation(); agregarAlCarrito('Salchipapa Especial',15000)">Especial — $15.000</li>
+                <li data-item="Mixta" onmouseenter="hoverIngredientes('salchipapa', this)" onclick="clickIngredientes('salchipapa', this); event.stopPropagation(); agregarAlCarrito('Salchipapa Mixta',18000)">Mixta — $18.000</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('salchipapa')">Volver</button>
+        </div>
+    </div>
+
+    <!-- EMPANADAS -->
+    <div class="card" onclick="mostrarSubmenu('empanadas')">
+        <img src="IMG/Empanada.avif">
+        <h3>Empanadas</h3>
+        <div id="submenu-empanadas" class="submenu">
+            <ul>
+                <li data-item="Carne" onmouseenter="hoverIngredientes('empanadas', this)" onclick="clickIngredientes('empanadas', this); event.stopPropagation(); agregarAlCarrito('Empanada Carne',2000)">Carne — $2.000</li>
+                <li data-item="Pollo" onmouseenter="hoverIngredientes('empanadas', this)" onclick="clickIngredientes('emanadas', this); event.stopPropagation(); agregarAlCarrito('Empanada Pollo',2500)">Pollo — $2.500</li>
+                <li data-item="Mixta" onmouseenter="hoverIngredientes('empanadas', this)" onclick="clickIngredientes('empanadas', this); event.stopPropagation(); agregarAlCarrito('Empanada Mixta',3000)">Mixta — $3.000</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('empanadas')">Volver</button>
+        </div>
+    </div>
+
+    <!-- PAPAS RELLENAS -->
+    <div class="card" onclick="mostrarSubmenu('papa')">
+        <img src="IMG/Papa Rellena.avif">
+        <h3>Papas Rellenas</h3>
+        <div id="submenu-papa" class="submenu">
+            <ul>
+                <li data-item="carne" onmouseenter="hoverIngredientes('papa', this)" onclick="clickIngredientes('carne', this); event.stopPropagation(); agregarAlCarrito('Papa Rellena Carne',4000)">Carne — $4.000</li>
+                <li data-item="pollo" onmouseenter="hoverIngredientes('papa', this)" onclick="clickIngredientes('carne', this); event.stopPropagation(); agregarAlCarrito('Papa Rellena Pollo',4000)">Pollo — $4.000</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('papa')">Volver</button>
+        </div>
+    </div>
+
+    <!-- PASTELES POLLO -->
+    <div class="card" onclick="mostrarSubmenu('pastel')">
+        <img src="IMG/Pastel De Pollo.jpg">
+        <h3>Pasteles De Pollo</h3>
+        <div id="submenu-pastel" class="submenu">
+            <ul>
+                <li data-item="Unidad" onmouseenter="hoverIngredientes('pastel', this)" onclick="clickIngredientes('pastel', this); event.stopPropagation(); agregarAlCarrito('Pastel de Pollo',3000)">Unidad — $3.000</li>
+                <li data-item="combo2" onmouseenter="hoverIngredientes('pastel', this)" onclick="clickIngredientes('pastel', this); event.stopPropagation(); agregarAlCarrito('Pastel Pollo x2',5500)">Combo 2 — $5.500</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('pastel')">Volver</button>
+        </div>
+    </div>
+
+    <!-- AREPAS -->
+    <div class="card" onclick="mostrarSubmenu('arepas')">
+        <img src="IMG/Arepa.jpg">
+        <h3>Arepas</h3>
+        <div id="submenu-arepas" class="submenu">
+            <ul>
+                <li data-item="Queso" onmouseenter="hoverIngredientes('arepas', this)" onclick="clickIngredientes('arepas', this);event.stopPropagation(); agregarAlCarrito('Arepa Queso',5000)">Queso — $5.000</li>
+                <li data-item="Huevo" onmouseenter="hoverIngredientes('arepas', this)" onclick="clickIngredientes('arepas', this);event.stopPropagation(); agregarAlCarrito('Arepa Huevo',6000)">Huevo — $6.000</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('arepas')">Volver</button>
+        </div>
+    </div>
+
+    <!-- CHORIZO -->
+    <div class="card" onclick="mostrarSubmenu('chorizo')">
+        <img src="IMG/Chorizo.jpg">
+        <h3>Chorizos</h3>
+        <div id="submenu-chorizo" class="submenu">
+            <ul>
+                <li data-item="Sencillo" onmouseenter="hoverIngredientes('chorizo', this)" onclick="clickIngredientes('chorizo', this); event.stopPropagation(); agregarAlCarrito('Chorizo Sencillo',8000)">Sencillo — $8.000</li>
+                <li data-item="Especial" onmouseenter="hoverIngredientes('chorizo', this)" onclick="clickIngredientes('chorizo', this); event.stopPropagation(); agregarAlCarrito('Chorizo Especial',10000)">Especial — $10.000</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('chorizo')">Volver</button>
+        </div>
+    </div>
+
+    <!-- PASTELES DE YUCA -->
+    <div class="card" onclick="mostrarSubmenu('yuca')">
+        <img src="IMG/Pastel De Yuca.gif">
+        <h3>Pasteles De Yuca</h3>
+        <div id="submenu-yuca" class="submenu">
+            <ul>
+                <li data-item="Carne" onmouseenter="hoverIngredientes('yuca', this)" onclick="clickIngredientes('yuca', this); event.stopPropagation(); agregarAlCarrito('Pastel Yuca Carne',3500)">Carne — $3.500</li>
+                <li data-item="Pollo" onmouseenter="hoverIngredientes('yuca', this)" onclick="clickIngredientes('yuca', this); event.stopPropagation(); agregarAlCarrito('Pastel Yuca Pollo',3500)">Pollo — $3.500</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('yuca')">Volver</button>
+        </div>
+    </div>
+
+</div>
+
+<h2 class="titulo-seccion">BEBIDAS</h2>
+
+<div class="contenedor">
+
+    <!-- GASEOSA PERSONAL -->
+    <div class="card" onclick="mostrarSubmenu('gpersonal')">
+        <img src="IMG/Gaseosa Personal.jpg">
+        <h3>Gaseosa Personal</h3>
+        <div id="submenu-gpersonal" class="submenu">
+            <ul>
+                <li data-item="CocaCola" onmouseenter="hoverIngredientes('bebidas', this)" onclick="clickIngredientes('bebidas', this); event.stopPropagation(); agregarAlCarrito('Coca Cola Personal',3000)">Coca-Cola — $3.000</li>
+                <li data-item="Pepsi" onmouseenter="hoverIngredientes('bebidas', this)" onclick="clickIngredientes('bebidas', this); event.stopPropagation(); agregarAlCarrito('Pepsi Personal',3000)">Pepsi — $3.000</li>
+                <li data-item="Manzana" onmouseenter="hoverIngredientes('bebidas', this)" onclick="clickIngredientes('bebidas', this); event.stopPropagation(); agregarAlCarrito('Manzana Personal',3000)">Manzana — $3.000</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('gpersonal')">Volver</button>
+        </div>
+    </div>
+
+    <!-- GASEOSA GRANDE -->
+    <div class="card" onclick="mostrarSubmenu('ggrande')">
+        <img src="IMG/Gaseosa Grande.webp">
+        <h3>Gaseosa Grande</h3>
+        <div id="submenu-ggrande" class="submenu">
+            <ul>
+                <li data-item="CocaCola15" onmouseenter="hoverIngredientes('bebidas', this)" onclick="clickIngredientes('bebidas', this); event.stopPropagation(); agregarAlCarrito('Coca Cola 1.5L',6000)">Coca-Cola 1.5L — $6.000</li>
+                <li data-item="Pepsi15" onmouseenter="hoverIngredientes('bebidas', this)" onclick="clickIngredientes('bebidas', this); event.stopPropagation(); agregarAlCarrito('Pepsi 1.5L',6000)">Pepsi 1.5L — $6.000</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('ggrande')">Volver</button>
+        </div>
+    </div>
+
+    <!-- GASEOSA BOTELLA -->
+    <div class="card" onclick="mostrarSubmenu('gbotella')">
+        <img src="IMG/Gseosa En Botella.jpg">
+        <h3>Gaseosa Botella</h3>
+        <div id="submenu-gbotella" class="submenu">
+            <ul>
+                <li data-item="Colombiana" onmouseenter="hoverIngredientes('bebidas', this)" onclick="clickIngredientes('bebidas', this); event.stopPropagation(); agregarAlCarrito('Colombiana Botella',4000)">Colombiana — $4.000</li>
+                <li data-item="CocaCola" onmouseenter="hoverIngredientes('bebidas', this)" onclick="clickIngredientes('bebidas', this); event.stopPropagation(); agregarAlCarrito('Coca Cola Botella',4000)">Coca-Cola — $4.000</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('gbotella')">Volver</button>
+        </div>
+    </div>
+
+    <!-- AGUA SIN GAS -->
+    <div class="card" onclick="mostrarSubmenu('asgas')">
+        <img src="IMG/Agua Sin Gas.jpg">
+        <h3>Agua sin Gas</h3>
+        <div id="submenu-asgas" class="submenu">
+            <ul>
+                <li data-item="Agua" onmouseenter="hoverIngredientes('bebidas', this)" onclick="clickIngredientes('bebidas', this); event.stopPropagation(); agregarAlCarrito('Agua sin gas 600ml',3000)">600ml — $3.000</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('asgas')">Volver</button>
+        </div>
+    </div>
+
+    <!-- AGUA CON GAS -->
+    <div class="card" onclick="mostrarSubmenu('acgas')">
+        <img src="IMG/Agua Con Gas.jpg">
+        <h3>Agua con Gas</h3>
+        <div id="submenu-acgas" class="submenu">
+            <ul>
+                <li data-item="Aguagas" onmouseenter="hoverIngredientes('bebidas', this)" onclick="clickIngredientes('bebidas', this); event.stopPropagation(); agregarAlCarrito('Agua con gas 600ml',3500)">600ml — $3.500</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('acgas')">Volver</button>
+        </div>
+    </div>
+
+    <!-- JUGOS -->
+    <div class="card" onclick="mostrarSubmenu('jugos')">
+        <img src="IMG/Jugo.png">
+        <h3>Jugos</h3>
+        <div id="submenu-jugos" class="submenu">
+            <ul>
+                <li data-item="JugoFresa" onmouseenter="hoverIngredientes('bebidas', this)" onclick="clickIngredientes('bebidas', this); event.stopPropagation(); agregarAlCarrito('Jugo de Fresa',5000)">Fresa — $5.000</li>
+                <li data-item="JugoMora" onmouseenter="hoverIngredientes('bebidas', this)" onclick="clickIngredientes('bebidas', this); event.stopPropagation(); agregarAlCarrito('Jugo de Mora',5000)">Mora — $5.000</li>
+                <li data-item="JugoLulo" onmouseenter="hoverIngredientes('bebidas', this)" onclick="clickIngredientes('bebidas', this); event.stopPropagation(); agregarAlCarrito('Jugo de Lulo',5000)">Lulo — $5.000</li>
+            </ul>
+            <div class="ingredientes-box"></div>
+            <button class="btn-volver" onclick="event.stopPropagation(); volverSubmenu('jugos')">Volver</button>
+        </div>
+    </div>
+</div>
+</section>
+
+<div id="widget-accesibilidad">
+    <button id="boton-accesibilidad" title="Opciones de Accesibilidad"></button>
+    <div id="menu-accesibilidad">
+        <h4>Panel de Accesibilidad</h4>
+        
+        <div class="opcion-acc">
+            <label>Tamaño de letra: <span id="val-size">100%</span></label>
+            <input type="range" id="slider-size" min="80" max="150" value="100">
+        </div>
+
+        <div class="opcion-acc">
+            <label>Tipo de fuente:</label>
+            <select id="select-font">
+                <option value="Arial, sans-serif">Predeterminada</option>
+                <option value="'Courier New', monospace">Monoespaciado</option>
+                <option value="'Georgia', serif">Elegante (Serif)</option>
+                <option value="'OpenDyslexic', sans-serif">Lectura Fácil</option>
+            </select>
+        </div>
+
+        <div class="opcion-acc">
+            <button id="btn-contraste" onclick="toggleContrast()">Activar Modo Oscuro</button>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="accesibilidad.css">
+<script src="accesibilidad.js"></script>
+
+        <footer>
+            <div class="footer-content">
+                <br><br>
+                <p>&copy; 2025 BURGUERSOFT - EL ORIENTE. Todos los derechos reservados.</p>
+                <br><br>
+            </div>
+        </footer>
+</body>
+</html>

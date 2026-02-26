@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burgersoft - Materia Prima</title>
+    <link rel="stylesheet" href="estilos-header-lader-admin.css">
+    <link rel="stylesheet" href="Estilos-materiaprima.css">
+    <link rel="icon" href="img\icono.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- SIDEBAR IZQUIERDO -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="img/icono.png" alt="Logo Burgersoft" class="logo">
+            <hr style=" border-right: 0px solid var(--color-primario); height: 40px; ">
+            <h2 class="nom-local">El Oriente</h2>
+        </div>
+
+        <div class="sidebar-footer">
+            <hr style="size: 2px; width: 150px; align-self: center;">
+            <div class="sidebar-item">
+                <a href="Config Cuenta.html">
+                    <img src="img\engranaje.png" class="icono-sidebar">
+                    CONFIGURACIÓN DE CUENTA
+                </a>
+            </div>
+            <hr style="size: 2px; width: 150px; align-self: center;">
+             <div class="sidebar-item admin-name" style="text-align: center;">
+                <a href="#" style="text-align: center;">
+                    <img src="img/usuario.png" class="icono-sidebar">
+                    <span id="nombre-sidebar">Jose Orduz</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-content">
+        
+        <!-- HEADER NAV DERECHA -->
+        <nav class="header-nav">
+            <hr style=" border-right: 1px solid white; height: 40px;">
+            <a href="inicio_admin.html" class="nav-item">
+                <img src="img\casa.png" class="icono">
+                Inicio
+            </a>
+            <hr style=" border-right: 1px solid white; height: 40px;">
+            <a href="Menu.html" class="nav-item">
+                <img src="img\cena.png" class="icono">
+                Menú
+            </a>
+            <hr style=" border-right: 1px solid white; height: 40px;">
+            <a href="Ventas.html" class="nav-item">
+                <img src="img\insignia.png" class="icono">
+                Ventas
+            </a>
+            <hr style=" border-right: 1px solid white; height: 40px;">
+            <a href="Materia Prima.html" class="nav-item active">
+                <img src="img\tratamiento-a-base-de-hierbas.png" class="icono">
+                Materia Prima
+            </a>
+            <hr style=" border-right: 2px solid white; height: 40px;">
+            <a href="Gestion Marca.html" class="nav-item">
+                <img src="img\marca-comercial.png" class="icono">
+                Gestión de Marca
+            </a>
+            <hr style=" border-right: 2px solid white; height: 40px;">
+            <a href="Promociones.html" class="nav-item">
+                <img src="img\promocion.png" class="icono">
+                Promociones
+            </a>
+            <hr style=" border-right: 2px solid white; height: 40px;">
+            <a href="Burguersoft.html" class="nav-item nav-logout">
+                <img src="img\cerrar-sesion.png" class="icono">
+                Salir
+            </a>
+        </nav>
+
+        <div class="contenedor">
+    <h2>Gestión de Materia Prima</h2>
+
+    <div class="formulario">
+        <input type="text" id="nombre" placeholder="Nombre de la materia">
+        <input type="text" id="tipo" placeholder="Tipo">
+        <input type="number" id="valor" placeholder="Valor">
+        <input type="number" id="cantidad" placeholder="Cantidad disponible">
+        <input type="text" id="marca" placeholder="Marca">
+
+        <button id="btn-guardar">Guardar</button>
+    </div>
+
+    <div class="busqueda">
+        <input type="text" id="buscar" placeholder="Buscar materia...">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th><th>Tipo</th><th>Valor</th>
+                <th>Cantidad</th><th>Marca</th><th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-materia"></tbody>
+    </table>
+</div>
+</div>
+
+ <div id="widget-accesibilidad">
+    <button id="boton-accesibilidad" title="Opciones de Accesibilidad"></button>
+    <div id="menu-accesibilidad">
+        <h4>Panel de Accesibilidad</h4>
+        
+        <div class="opcion-acc">
+            <label>Tamaño de letra: <span id="val-size">100%</span></label>
+            <input type="range" id="slider-size" min="80" max="150" value="100">
+        </div>
+
+        <div class="opcion-acc">
+            <label>Tipo de fuente:</label>
+            <select id="select-font">
+                <option value="Arial, sans-serif">Predeterminada</option>
+                <option value="'Courier New', monospace">Monoespaciado</option>
+                <option value="'Georgia', serif">Elegante (Serif)</option>
+                <option value="'OpenDyslexic', sans-serif">Lectura Fácil</option>
+            </select>
+        </div>
+
+        <div class="opcion-acc">
+            <button id="btn-contraste" onclick="toggleContrast()">Activar Modo Oscuro</button>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="accesibilidad.css">
+<script src="accesibilidad.js"></script>
+
+<script>
+let listaMateria = [];
+let editIndex = null;
+
+document.getElementById("btn-guardar").addEventListener("click", guardar);
+document.getElementById("buscar").addEventListener("input", listar);
+
+function guardar() {
+    const nombre = document.getElementById("nombre").value;
+    const tipo = document.getElementById("tipo").value;
+    const valor = document.getElementById("valor").value;
+    const cantidad = document.getElementById("cantidad").value;
+    const marca = document.getElementById("marca").value;
+
+    if (!nombre || !tipo) return alert("Complete los datos.");
+
+    const data = { nombre, tipo, valor, cantidad, marca };
+
+    if (editIndex === null) {
+        listaMateria.push(data);
+    } else {
+        listaMateria[editIndex] = data;
+        editIndex = null;
+    }
+
+    limpiar();
+    listar();
+}
+
+function listar() {
+    const busqueda = document.getElementById("buscar").value.toLowerCase();
+    const tbody = document.getElementById("tabla-materia");
+    tbody.innerHTML = "";
+
+    listaMateria
+        .filter(m => m.nombre.toLowerCase().includes(busqueda))
+        .forEach((m, i) => {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${m.nombre}</td>
+                    <td>${m.tipo}</td>
+                    <td>${m.valor}</td>
+                    <td>${m.cantidad}</td>
+                    <td>${m.marca}</td>
+                    <td>
+                        <span class="accion editar" onclick="editar(${i})">Editar</span>
+                        <span class="accion eliminar" onclick="eliminar(${i})">Eliminar</span>
+                    </td>
+                </tr>
+            `;
+        });
+}
+
+function editar(i) {
+    const m = listaMateria[i];
+
+    document.getElementById("nombre").value = m.nombre;
+    document.getElementById("tipo").value = m.tipo;
+    document.getElementById("valor").value = m.valor;
+    document.getElementById("cantidad").value = m.cantidad;
+    document.getElementById("marca").value = m.marca;
+
+    editIndex = i;
+}
+
+function eliminar(i) {
+    listaMateria.splice(i, 1);
+    listar();
+
+    
+}
+
+function limpiar() {
+    document.querySelectorAll(".formulario input").forEach(i => i.value = "");
+}
+
+function cargarVentas() {
+        mostrarVentas();
+    }
+</script>
+
+</body>
+</html>
+

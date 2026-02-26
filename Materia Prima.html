@@ -138,86 +138,107 @@
 <script src="accesibilidad.js"></script>
 
 <script>
-let listaMateria = [];
-let editIndex = null;
+let editId = null; // Ahora usaremos el ID de la base de datos
 
 document.getElementById("btn-guardar").addEventListener("click", guardar);
 document.getElementById("buscar").addEventListener("input", listar);
 
-function guardar() {
+// 1. CARGAR DATOS AL INICIAR
+window.onload = listar;
+
+async function listar() {
+    const busqueda = document.getElementById("buscar").value.toLowerCase();
+    const tbody = document.getElementById("tabla-materia");
+    
+    try {
+        const res = await fetch('http://localhost:3000/materia-prima');
+        const listaMateria = await res.json();
+        
+        tbody.innerHTML = "";
+
+        listaMateria
+            .filter(m => m.nombre_insumo.toLowerCase().includes(busqueda))
+            .forEach((m) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${m.nombre_insumo}</td>
+                        <td>${m.unidad_medida}</td>
+                        <td>${m.valor || 0}</td> 
+                        <td>${m.cantidad}</td>
+                        <td>${m.nombre_marca || 'Sin Marca'}</td>
+                        <td>
+                            <span class="accion editar" onclick="prepararEdicion(${m.id_insumo}, '${m.nombre_insumo}', '${m.unidad_medida}', ${m.cantidad}, ${m.id_marca})">Editar</span>
+                            <span class="accion eliminar" onclick="eliminar(${m.id_insumo})">Eliminar</span>
+                        </td>
+                    </tr>
+                `;
+            });
+    } catch (error) {
+        console.error("Error al listar:", error);
+    }
+}
+
+async function guardar() {
     const nombre = document.getElementById("nombre").value;
-    const tipo = document.getElementById("tipo").value;
+    const tipo = document.getElementById("tipo").value; // unidad_medida
     const valor = document.getElementById("valor").value;
     const cantidad = document.getElementById("cantidad").value;
-    const marca = document.getElementById("marca").value;
+    const marca = document.getElementById("marca").value; // id_marca
 
     if (!nombre || !tipo) return alert("Complete los datos.");
 
-    const data = { nombre, tipo, valor, cantidad, marca };
+    const data = { nombre, tipo, valor, cantidad, id_marca: marca };
 
-    if (editIndex === null) {
-        listaMateria.push(data);
-    } else {
-        listaMateria[editIndex] = data;
-        editIndex = null;
+    let url = 'http://localhost:3000/materia-prima';
+    let metodo = 'POST';
+
+    // Si estamos editando, cambiamos la ruta y el método
+    if (editId !== null) {
+        url = `http://localhost:3000/materia-prima/${editId}`;
+        metodo = 'PUT';
     }
 
-    limpiar();
-    listar();
+    const res = await fetch(url, {
+        method: metodo,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+        alert(editId === null ? "Insumo guardado" : "Insumo actualizado");
+        editId = null;
+        limpiar();
+        listar();
+    }
 }
 
-function listar() {
-    const busqueda = document.getElementById("buscar").value.toLowerCase();
-    const tbody = document.getElementById("tabla-materia");
-    tbody.innerHTML = "";
-
-    listaMateria
-        .filter(m => m.nombre.toLowerCase().includes(busqueda))
-        .forEach((m, i) => {
-            tbody.innerHTML += `
-                <tr>
-                    <td>${m.nombre}</td>
-                    <td>${m.tipo}</td>
-                    <td>${m.valor}</td>
-                    <td>${m.cantidad}</td>
-                    <td>${m.marca}</td>
-                    <td>
-                        <span class="accion editar" onclick="editar(${i})">Editar</span>
-                        <span class="accion eliminar" onclick="eliminar(${i})">Eliminar</span>
-                    </td>
-                </tr>
-            `;
-        });
-}
-
-function editar(i) {
-    const m = listaMateria[i];
-
-    document.getElementById("nombre").value = m.nombre;
-    document.getElementById("tipo").value = m.tipo;
-    document.getElementById("valor").value = m.valor;
-    document.getElementById("cantidad").value = m.cantidad;
-    document.getElementById("marca").value = m.marca;
-
-    editIndex = i;
-}
-
-function eliminar(i) {
-    listaMateria.splice(i, 1);
-    listar();
-
+async function eliminar(id) {
+    if (!confirm("¿Seguro que deseas eliminarlo?")) return;
     
+    const res = await fetch(`http://localhost:3000/materia-prima/${id}`, {
+        method: 'DELETE'
+    });
+
+    if (res.ok) {
+        listar();
+    }
+}
+
+function prepararEdicion(id, nombre, tipo, cantidad, marca) {
+    document.getElementById("nombre").value = nombre;
+    document.getElementById("tipo").value = tipo;
+    document.getElementById("cantidad").value = cantidad;
+    document.getElementById("marca").value = marca;
+    editId = id;
 }
 
 function limpiar() {
     document.querySelectorAll(".formulario input").forEach(i => i.value = "");
+    editId = null;
 }
-
-function cargarVentas() {
-        mostrarVentas();
-    }
 </script>
 
 </body>
 </html>
+
 

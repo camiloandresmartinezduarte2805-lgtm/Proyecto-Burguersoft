@@ -11,7 +11,7 @@
     background: #F18921 !important;        /* Naranja principal */
     border: 1px solid #3d2111 !important;  /* Borde café oscuro */
     border-radius: 50% !important;         /* Lo hace un círculo perfecto */
-    width: 60px !important;                /*altura del boton*/
+    width: 120px !important;                /*altura del boton del boton cambiada de 60 a 160*/
     height: 60px !important;
     cursor: pointer !important;            /* Cambia el cursor a mano al pasar encima */
     display: flex;
@@ -297,4 +297,5 @@ body.modo-oscuro-accesible .modal-content {
     border: 1px solid #F18921 !important;
 
 }
+
 

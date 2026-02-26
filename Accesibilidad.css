@@ -1,6 +1,6 @@
 /* --- 1. CONFIGURACIÓN DEL WIDGET FLOTANTE --- */
 #widget-accesibilidad { 
-    position: fixed;    /* Se queda fijo en la pantalla aunque hagas scroll */
+    position: fixed;    /* Se queda fijo en la pantalla aunque hagas scroll, en el visual studio*/
     bottom: 25px;       /* Separación desde abajo */
     right: 25px;        /* Separación desde la derecha */
     z-index: 1000000;   /* Número muy alto para que siempre esté por encima de todo */
@@ -295,4 +295,5 @@ body.modo-oscuro-accesible .container-promos,
 body.modo-oscuro-accesible .modal-content {
     background-color: #1e1e1e !important;
     border: 1px solid #F18921 !important;
+
 }
